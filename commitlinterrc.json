@@ -5,7 +5,7 @@
   },
   "max-len": 90,
   "min-len": 10,
-  "debug": true,
+  "debug": false,
   "subject": true,
   "scope": true
 }
