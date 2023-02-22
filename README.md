@@ -4,13 +4,13 @@
 
 * [Typescript](https://www.npmjs.com/package/typescript)
 
-* [ts-node](https://www.npmjs.com/package/ts-node)
+* [TS Node](https://www.npmjs.com/package/ts-node)
 
-* [commit msg linted](https://www.npmjs.com/package/git-commit-msg-linter)
+* [Commit Msg Linted](https://www.npmjs.com/package/git-commit-msg-linter)
 
 * [Husky](https://typicode.github.io/husky)
 
-* [EsLint](https://eslint.org/docs/latest/use/getting-started)
+* [ESLint](https://eslint.org/docs/latest/use/getting-started)
 
 * [Prettier](https://prettier.io/docs/en/index.html)
 
