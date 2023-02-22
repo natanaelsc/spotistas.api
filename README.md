@@ -1,5 +1,9 @@
 # Spotistas Backend
 
+## Ambiente
+
+* [Node.js LTS](https://nodejs.org/en)
+
 ## Bibliotecas
 
 * [Typescript](https://www.npmjs.com/package/typescript)
