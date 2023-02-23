@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --cls src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
