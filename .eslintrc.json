@@ -26,6 +26,7 @@
     "prettier/prettier": "error",
     "import/extension": "off",
     "import/no-unresolved": "error",
+    "import/no-named-as-default-member": "off",
     "no-console": "off",
     "import/order": [
       "error",

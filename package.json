@@ -1,23 +1,24 @@
 {
-  "name": "spotistas-backend",
+  "name": "spotistas.api",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start:dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --cls src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/spotistas/spotistas-backend.git"
+    "url": "git+https://github.com/spotistas/spotistas.api.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/spotistas/spotistas-backend/issues"
+    "url": "https://github.com/spotistas/spotistas.api/issues"
   },
-  "homepage": "https://github.com/spotistas/spotistas-backend#readme",
+  "homepage": "https://github.com/spotistas/spotistas.api#readme",
   "devDependencies": {
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
@@ -37,6 +38,7 @@
     "lint-staged": "^13.1.2",
     "prettier": "2.8.4",
     "ts-node": "^10.9.1",
+    "ts-node-dev": "^2.0.0",
     "tsconfig-paths": "4.1.2",
     "typescript": "^4.9.5"
   },
