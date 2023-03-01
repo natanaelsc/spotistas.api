@@ -7,6 +7,7 @@ dotenv.config({
 const env = {
   node: {
     port: Number(process.env.PORT),
+    cors: String(process.env.CORS).split(','),
   },
   spotify: {
     client_id: String(process.env.SPOTIFY_CLIENT_ID),

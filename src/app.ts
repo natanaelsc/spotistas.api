@@ -1,12 +1,13 @@
 import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
+import env from './config/env';
 import oauthRouter from './routes/oauth';
 
 const app = express();
 
 const corsOptions = {
-  origin: undefined,
+  origin: env.node.cors,
   methods: ['GET', 'POST'],
   credentials: true,
 };
