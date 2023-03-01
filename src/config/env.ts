@@ -4,10 +4,15 @@ dotenv.config({
   encoding: 'utf8',
 });
 
-export default {
+const env = {
+  node: {
+    port: Number(process.env.PORT),
+  },
   spotify: {
-    client_id: process.env.SPOTIFY_CLIENT_ID,
-    client_secret: process.env.SPOTIFY_CLIENT_SECRET,
-    redirect_uri: process.env.SPOTIFY_REDIRECT_URI,
+    client_id: String(process.env.SPOTIFY_CLIENT_ID),
+    client_secret: String(process.env.SPOTIFY_CLIENT_SECRET),
+    redirect_uri: String(process.env.SPOTIFY_REDIRECT_URI),
   },
 };
+
+export default env;
