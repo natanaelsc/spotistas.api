@@ -24,7 +24,7 @@ Exemplos: sub-pacote, workspace, módulo, componente, página.
 
 Breve resumo da mudança, escrito no tempo verbal presente. Começa com letra minúscula e não há ponto final.
 
-Exemplo de formatação:
+#### Exemplo de formatação
 
 ```sh
 git commit -m "feat: add subject"
@@ -56,6 +56,16 @@ Utilize a ideia de fluxo de trabalho do Gitflow. Recomendo que utilize o comando
 6. Se um problema for detectado em produção (`main`), uma branch de `hotfix` será criada a partir da `main`.
 
 7. Depois que o `hotfix` é concluído, ele é mesclado mesclada em `develop` e `main`.
+
+#### Exemplo
+
+```sh
+git checkout develop
+git checkout -b feature/docs
+git add docs/CONTRIBUTING.md
+git commit -m "docs: add something new"
+git push origin feature/docs
+```
 
 Veja mais detalhes nesse [tutorial](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow).
 
