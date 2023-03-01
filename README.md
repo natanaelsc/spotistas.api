@@ -1,15 +1,5 @@
 # Spotistas Backend
 
-## Ambiente
-
-* [Node.js LTS](https://nodejs.org/en)
-
-## Boas praticas
-
-* [Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
-
-* [Conventional Commits](https://www.conventionalcommits.org/pt-br/v1.0.0)
-
 ## Bibliotecas
 
 * [Commit Msg Linted](https://www.npmjs.com/package/git-commit-msg-linter)
