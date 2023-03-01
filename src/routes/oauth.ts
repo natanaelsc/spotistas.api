@@ -3,6 +3,9 @@ import { OAuthController } from '../controllers/OAuthController';
 
 const router = Router();
 
-router.get('/', new OAuthController().auth);
+const oauthController = new OAuthController();
+
+router.get('/', oauthController.auth);
+router.get('/callback', oauthController.callback);
 
 export default router;
