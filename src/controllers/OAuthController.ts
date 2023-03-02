@@ -1,28 +1,31 @@
 import { type Request, type Response } from 'express';
-import { OAuthProvider } from '../providers/OAuthProvider';
+import { type OAuthProvider } from './../providers/OAuthProvider';
 
-export class OAuthController {
-  auth(_req: Request, res: Response): void {
+class OAuthController {
+  private readonly stateKey: string = 'spotify_auth_state';
+
+  constructor(private readonly oauthProvider: OAuthProvider) {}
+
+  auth = (_req: Request, res: Response): void => {
+    // TODO: Generate a random string or jwt to state
     const state = 'state';
-    const oauthProvider = new OAuthProvider();
-    const redirectURI = oauthProvider.getRedirectUri(state);
-    res.cookie('auth_state', state);
+    const redirectURI = this.oauthProvider.getRedirectUri(state);
+    res.cookie(this.stateKey, state);
     res.status(200).redirect(redirectURI);
-  }
+  };
 
-  async callback(req: Request, res: Response): Promise<Response> {
+  callback = async (req: Request, res: Response): Promise<Response> => {
     const { code, state } = req.query;
-    const storedState = req.cookies !== null ? req.cookies['auth_state' as string] : null;
+    const storedState = req.cookies !== null ? req.cookies[this.stateKey] : null;
     try {
-      const oauthProvider = new OAuthProvider();
-      const data = await oauthProvider.getToken(code as string);
-      if (state !== storedState) {
-        return res.status(400).send({ error: 'state mismatch' });
-      } else {
-        return res.status(200).send({ data });
-      }
+      if (state !== storedState) return res.status(400).send({ error: 'state mismatch' });
+      res.clearCookie(this.stateKey);
+      const data = await this.oauthProvider.getToken(code as string);
+      return res.status(200).send(data);
     } catch (error) {
-      return res.status(500).send({ message: 'Something went wrong' });
+      return res.status(500).send({ message: 'Something went wrong' }).end();
     }
-  }
+  };
 }
+
+export default OAuthController;
