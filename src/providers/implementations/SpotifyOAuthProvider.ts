@@ -27,7 +27,7 @@ class SpotifyOAuthProvider implements OAuthProvider {
         grant_type: 'authorization_code',
         code,
         redirect_uri: this.redirectURI,
-        client_id: env.spotify.client_id,
+        client_id: this.clientId,
         client_secret: this.clientSecret,
       }),
       headers: {
