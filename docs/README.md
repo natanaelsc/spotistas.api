@@ -1,4 +1,4 @@
-# Spotistas
+# Spotistas API
 
 Você precisará registrar o aplicativo no Spotify e obter suas próprias credenciais.
 
@@ -13,4 +13,22 @@ Você precisará registrar o aplicativo no Spotify e obter suas próprias creden
 ```env
 SPOTIFY_CLIENT_ID=seu_client_id_aqui
 SPOTIFY_CLIENT_SECRET=seu_client_secret_aqui
+```
+
+## Rotas OAuth
+
+### Autorização
+
+Login do usuário com Spotify. Retorna os token de acesso e atualização (refresh token).
+
+```http
+GET http://localhost:5001/oauth
+```
+
+### Callback
+
+Rota para o Spotify retornar o código de autorização que será usado para gerar os tokens.
+
+```http
+GET http://localhost:5001/oauth/callback
 ```
