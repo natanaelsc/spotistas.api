@@ -1,15 +1,16 @@
 import http from 'http';
 import app from './app';
+import env from './config/env';
 
-const PORT = 5001;
+const port = env.node.port;
 
-app.set('port', PORT);
+app.set('port', port);
 
 const server = http.createServer(app);
 
 server
-  .listen(PORT, () => {
-    console.debug(`Server is running on port ${PORT}`);
+  .listen(port, () => {
+    console.debug(`Server is running on port ${port}`);
   })
   .on('error', err => {
     console.error(err);

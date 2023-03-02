@@ -37,6 +37,12 @@
           ["internal", "parent", "sibling", "index"]
         ]
       }
+    ],
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checksVoidReturn": false
+      }
     ]
   },
   "settings": {
