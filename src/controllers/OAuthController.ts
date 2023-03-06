@@ -1,5 +1,6 @@
 import { type Request, type Response } from 'express';
 import config from '../config/env';
+import { generateRandomString } from '../utils/crypto';
 import { type OAuthProvider } from './../providers/OAuthProvider';
 
 class OAuthController {
@@ -8,12 +9,12 @@ class OAuthController {
 
   constructor(private readonly oauthProvider: OAuthProvider) {}
 
-  auth = (_req: Request, res: Response): void => {
-    // TODO: Generate a random string or jwt to state
-    const state = 'state';
+  auth = (_req: Request, res: Response): Response => {
+    const state = generateRandomString(16, 'base64url');
     const redirectUri = this.oauthProvider.getRedirectUri(state);
     res.cookie(this.stateKey, state);
-    res.status(200).redirect(redirectUri);
+    res.status(302).redirect(redirectUri);
+    return res.end();
   };
 
   callback = async (req: Request, res: Response): Promise<Response> => {
