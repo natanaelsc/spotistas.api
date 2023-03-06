@@ -4,10 +4,12 @@ dotenv.config({
   encoding: 'utf8',
 });
 
-const env = {
+const config = {
   node: {
+    env: String(process.env.NODE_ENV),
     port: Number(process.env.PORT),
     cors: String(process.env.CORS).split(','),
+    log_level: String(process.env.LOG_LEVEL),
   },
   spotify: {
     client_id: String(process.env.SPOTIFY_CLIENT_ID),
@@ -16,4 +18,4 @@ const env = {
   },
 };
 
-export default env;
+export default config;

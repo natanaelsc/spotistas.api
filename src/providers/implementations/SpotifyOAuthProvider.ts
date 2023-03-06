@@ -1,10 +1,10 @@
-import env from '../../config/env';
+import config from '../../config/env';
 import { type OAuthProvider, type OAuthProviderResponse } from '../OAuthProvider';
 
 class SpotifyOAuthProvider implements OAuthProvider {
-  private readonly clientId: string = env.spotify.client_id;
-  private readonly clientSecret: string = env.spotify.client_secret;
-  private readonly redirectURI: string = env.spotify.redirect_uri;
+  private readonly clientId: string = config.spotify.client_id;
+  private readonly clientSecret: string = config.spotify.client_secret;
+  private readonly redirectURI: string = config.spotify.redirect_uri;
 
   getRedirectUri = (state: string): string => {
     const redirectURI =
