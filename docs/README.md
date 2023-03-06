@@ -1,34 +1,25 @@
 # Spotistas API
 
-Você precisará registrar o aplicativo no Spotify e obter suas próprias credenciais.
+## Endpoint
 
-1. Vá para o painel de dashboard em [Spotify for Developers](https://developer.spotify.com/dashboard), faça login em sua conta e crie um novo aplicativo chamado *Spotistas* ou qualquer outro nome.
+### OAuth
 
-2. Copia o Client ID e o Client Secret.
+Aqui a requisição deve ser feita em um navegador web onde o token de acesso deve ser retornado no cookie.
 
-3. Siga para **Edit Settings**. Em **Website** adicione `http://localhost:5001`, em **Redirect URIs** adicione `http://localhost:5001/oauth/callback`.
-
-4. Crie um novo arquivo `.env` na raiz do projeto baseado no arquivo [`.env.exemple`](/docs/.env.exemple) e adicione suas credencias do Spotify.
-
-```env
-SPOTIFY_CLIENT_ID=seu_client_id_aqui
-SPOTIFY_CLIENT_SECRET=seu_client_secret_aqui
-```
-
-## Rotas OAuth
-
-### Autorização
-
-Login do usuário com Spotify. Retorna os token de acesso e atualização (refresh token).
+#### Autenticação
 
 ```http
 GET http://localhost:5001/oauth
 ```
 
-### Callback
+Redireciona o usuário para a página de login do provedor oauth.
+Após o aceite dos termos, é redirecionado novamente para o cliente da requisição.
+Altere no arquivo `.env` em `CLIENT_URI` para a url do cliente frontend.
 
-Rota para o Spotify retornar o código de autorização que será usado para gerar os tokens.
+#### Callback
 
 ```http
 GET http://localhost:5001/oauth/callback
 ```
+
+É chamado pelo provedor oauth após o usuário concluir com sucesso a autenticação e aceite dos termos.
