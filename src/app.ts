@@ -3,6 +3,7 @@ import cors from 'cors';
 import express from 'express';
 import config from './config/env';
 import routes from './routes';
+import morgan from './middlewares/morgan';
 
 const app = express();
 
@@ -12,6 +13,7 @@ const corsOptions = {
   credentials: true,
 };
 
+app.use(morgan);
 app.use(cors(corsOptions));
 app.use(cookieParser());
 app.use(express.json());
