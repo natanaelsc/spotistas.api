@@ -2,7 +2,7 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import express from 'express';
 import config from './config/env';
-import oauthRouter from './routes/oauth';
+import routes from './routes';
 
 const app = express();
 
@@ -18,6 +18,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.disable('x-powered-by');
 
-app.use('/oauth', oauthRouter);
+app.use(routes);
 
 export default app;
