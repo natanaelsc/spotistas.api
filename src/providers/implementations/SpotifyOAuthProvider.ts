@@ -2,22 +2,22 @@ import config from '../../config/env';
 import { type OAuthProvider, type OAuthProviderResponse } from '../OAuthProvider';
 
 export class SpotifyOAuthProvider implements OAuthProvider {
-  private readonly clientId: string = config.spotify.client_id;
-  private readonly clientSecret: string = config.spotify.client_secret;
-  private readonly redirectURI: string = config.spotify.redirect_uri;
+  private readonly clientId = config.spotify.client_id;
+  private readonly clientSecret = config.spotify.client_secret;
+  private readonly redirectUri = config.spotify.redirect_uri;
+  private readonly scope = config.spotify.scope;
 
   getRedirectUri = (state: string): string => {
-    const redirectURI =
+    const redirectUri =
       'https://accounts.spotify.com/authorize?' +
       new URLSearchParams({
         client_id: this.clientId,
         response_type: 'code',
-        redirect_uri: this.redirectURI,
+        redirect_uri: this.redirectUri,
         state,
-        scope: 'user-read-private user-read-email',
+        scope: this.scope,
       }).toString();
-    console.debug(`Redirect URI: ${redirectURI}`);
-    return redirectURI;
+    return redirectUri;
   };
 
   getToken = async (code: string): Promise<OAuthProviderResponse> => {
@@ -26,7 +26,7 @@ export class SpotifyOAuthProvider implements OAuthProvider {
       body: new URLSearchParams({
         grant_type: 'authorization_code',
         code,
-        redirect_uri: this.redirectURI,
+        redirect_uri: this.redirectUri,
         client_id: this.clientId,
         client_secret: this.clientSecret,
       }),

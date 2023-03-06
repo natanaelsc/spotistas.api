@@ -6,7 +6,7 @@ import { type OAuthProvider } from './../providers/OAuthProvider';
 
 export class OAuthController {
   private readonly stateKey = 'auth_state';
-  private readonly clientUri = config.spotify.client_uri;
+  private readonly clientUri = config.client_uri;
 
   constructor(private readonly oauthProvider: OAuthProvider) {}
 

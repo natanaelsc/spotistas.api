@@ -15,8 +15,9 @@ const config = {
     client_id: String(process.env.SPOTIFY_CLIENT_ID),
     client_secret: String(process.env.SPOTIFY_CLIENT_SECRET),
     redirect_uri: String(process.env.SPOTIFY_REDIRECT_URI),
-    client_uri: String(process.env.SPOTIFY_CLIENT_URI),
+    scope: String(process.env.SPOTIFY_SCOPE),
   },
+  client_uri: String(process.env.CLIENT_URI),
 };
 
 export default config;
