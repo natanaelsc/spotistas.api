@@ -1,7 +1,7 @@
 import config from '../../config/env';
 import { type OAuthProvider, type OAuthProviderResponse } from '../OAuthProvider';
 
-class SpotifyOAuthProvider implements OAuthProvider {
+export class SpotifyOAuthProvider implements OAuthProvider {
   private readonly clientId: string = config.spotify.client_id;
   private readonly clientSecret: string = config.spotify.client_secret;
   private readonly redirectURI: string = config.spotify.redirect_uri;
@@ -45,5 +45,3 @@ class SpotifyOAuthProvider implements OAuthProvider {
     return token;
   };
 }
-
-export default SpotifyOAuthProvider;

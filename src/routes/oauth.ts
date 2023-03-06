@@ -1,6 +1,6 @@
 import { Router } from 'express';
-import OAuthController from '../controllers/OAuthController';
-import SpotifyOAuthProvider from '../providers/implementations/SpotifyOAuthProvider';
+import { OAuthController } from '../controllers/OAuthController';
+import { SpotifyOAuthProvider } from '../providers/implementations/SpotifyOAuthProvider';
 
 const router = Router();
 

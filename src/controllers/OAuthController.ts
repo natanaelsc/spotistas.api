@@ -1,10 +1,10 @@
 import { type Request, type Response } from 'express';
 import config from '../config/env';
+import logger from '../config/logger';
 import { generateRandomString } from '../utils/crypto';
 import { type OAuthProvider } from './../providers/OAuthProvider';
-import logger from '../config/logger';
 
-class OAuthController {
+export class OAuthController {
   private readonly stateKey = 'auth_state';
   private readonly clientUri = config.spotify.client_uri;
 
@@ -34,5 +34,3 @@ class OAuthController {
     return res.end();
   };
 }
-
-export default OAuthController;
