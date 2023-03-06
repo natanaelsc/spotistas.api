@@ -6,7 +6,6 @@ import { type OAuthProvider } from './../providers/OAuthProvider';
 
 export class OAuthController {
   private readonly stateKey = 'auth_state';
-  private readonly clientUri = config.client_uri;
 
   constructor(private readonly oauthProvider: OAuthProvider) {}
 
@@ -24,9 +23,10 @@ export class OAuthController {
     if (state !== storedState) return res.status(400).send({ error: 'state mismatch' });
     res.clearCookie(this.stateKey);
     try {
+      const { client_uri: clientUri } = config;
       const { access_token: token } = await this.oauthProvider.getToken(code as string);
       res.cookie('token', token);
-      res.status(302).redirect(this.clientUri);
+      res.status(302).redirect(clientUri);
     } catch (err) {
       logger.error(err);
       return res.status(400).send({ message: 'invalid code' }).end();
