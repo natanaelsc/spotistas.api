@@ -43,7 +43,8 @@
       {
         "checksVoidReturn": false
       }
-    ]
+    ],
+    "@typescript-eslint/naming-convention": "off"
   },
   "settings": {
     "import/parsers": {
