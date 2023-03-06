@@ -1,20 +1,13 @@
 import cookieParser from 'cookie-parser';
-import cors from 'cors';
 import express from 'express';
-import config from './config/env';
-import routes from './routes';
+import cors from './middlewares/cors';
 import morgan from './middlewares/morgan';
+import routes from './routes';
 
 const app = express();
 
-const corsOptions = {
-  origin: config.node.cors,
-  methods: ['GET', 'POST'],
-  credentials: true,
-};
-
 app.use(morgan);
-app.use(cors(corsOptions));
+app.use(cors);
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
