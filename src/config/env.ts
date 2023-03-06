@@ -16,6 +16,7 @@ const config = {
     client_secret: String(process.env.SPOTIFY_CLIENT_SECRET),
     redirect_uri: String(process.env.SPOTIFY_REDIRECT_URI),
     scope: String(process.env.SPOTIFY_SCOPE),
+    show_dialog: String(process.env.SPOTIFY_SHOW_DIALOG),
   },
   client_uri: String(process.env.CLIENT_URI),
 };
