@@ -1,5 +1,5 @@
 import config from '../../config/env';
-import { type OAuthProvider, type OAuthProviderResponse } from '../OAuthProvider';
+import { type OAuthProvider, type OAuthProviderDto } from '../OAuthProvider';
 
 export class SpotifyOAuthProvider implements OAuthProvider {
   private readonly clientId = config.spotify.client_id;
@@ -22,9 +22,12 @@ export class SpotifyOAuthProvider implements OAuthProvider {
     return redirectUri;
   };
 
-  getToken = async (code: string): Promise<OAuthProviderResponse> => {
-    const response: OAuthProviderResponse = await fetch('https://accounts.spotify.com/api/token', {
+  getToken = async (code: string): Promise<OAuthProviderDto> => {
+    const response: Response = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
       body: new URLSearchParams({
         grant_type: 'authorization_code',
         code,
@@ -32,18 +35,11 @@ export class SpotifyOAuthProvider implements OAuthProvider {
         client_id: this.clientId,
         client_secret: this.clientSecret,
       }),
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded',
-      },
-    })
-      .then(async res => await res.json())
-      .catch(err => {
-        console.error(err);
-      });
-    const token: OAuthProviderResponse = {
-      access_token: response.access_token,
-      refresh_token: response.refresh_token,
+    });
+    const data: OAuthProviderDto = await response.json();
+    return {
+      access_token: data.access_token,
+      refresh_token: data.refresh_token,
     };
-    return token;
   };
 }
