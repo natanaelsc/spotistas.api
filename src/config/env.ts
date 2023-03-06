@@ -4,7 +4,7 @@ dotenv.config({
   encoding: 'utf8',
 });
 
-const env = {
+const config = {
   node: {
     port: Number(process.env.PORT),
     cors: String(process.env.CORS).split(','),
@@ -16,4 +16,4 @@ const env = {
   },
 };
 
-export default env;
+export default config;
