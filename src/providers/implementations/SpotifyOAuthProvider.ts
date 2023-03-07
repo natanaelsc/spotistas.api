@@ -5,10 +5,9 @@ export class SpotifyOAuthProvider implements OAuthProvider {
   private readonly clientId = config.spotify.client_id;
   private readonly clientSecret = config.spotify.client_secret;
   private readonly redirectUri = config.spotify.redirect_uri;
-  private readonly scope = config.spotify.scope;
-  private readonly showDialog = config.spotify.show_dialog;
 
   getRedirectUri = (state: string): string => {
+    const { scope, show_dialog } = config.spotify;
     const redirectUri =
       'https://accounts.spotify.com/authorize?' +
       new URLSearchParams({
@@ -16,8 +15,8 @@ export class SpotifyOAuthProvider implements OAuthProvider {
         response_type: 'code',
         redirect_uri: this.redirectUri,
         state,
-        scope: this.scope,
-        show_dialog: this.showDialog,
+        scope,
+        show_dialog,
       }).toString();
     return redirectUri;
   };

@@ -1,23 +1,19 @@
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
 import express from 'express';
-import config from './config/env';
-import oauthRouter from './routes/oauth';
+import cookie from './middlewares/cookie';
+import cors from './middlewares/cors';
+import morgan from './middlewares/morgan';
+import routes from './routes';
 
 const app = express();
 
-const corsOptions = {
-  origin: config.node.cors,
-  methods: ['GET', 'POST'],
-  credentials: true,
-};
-
-app.use(cors(corsOptions));
-app.use(cookieParser());
+app.use(morgan);
+app.use(cors);
+app.use(cookie.parser);
+app.use(cookie.session);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.disable('x-powered-by');
 
-app.use('/oauth', oauthRouter);
+app.use(routes);
 
 export default app;

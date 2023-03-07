@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start:dev": "ts-node-dev --respawn --transpile-only --ignore-watch node_modules --cls src/index.ts",
+    "start:dev": "ts-node-dev --respawn --transpile-only --watch .env --ignore-watch node_modules --cls src/index.ts",
+    "lint": "eslint --ext .ts src",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
@@ -21,6 +22,7 @@
   "homepage": "https://github.com/spotistas/spotistas.api#readme",
   "devDependencies": {
     "@types/cookie-parser": "^1.4.3",
+    "@types/cookie-session": "^2.0.44",
     "@types/cors": "^2.8.13",
     "@types/express": "^4.17.17",
     "@types/morgan": "^1.9.4",
@@ -44,6 +46,7 @@
   },
   "dependencies": {
     "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
