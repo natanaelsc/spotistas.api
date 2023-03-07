@@ -24,10 +24,10 @@ export class OAuthController {
     if (state !== storedState) return res.status(400).send({ error: 'state mismatch' });
     res.clearCookie(this.stateKey);
     try {
-      const { client_uri: clientUri } = config;
-      const { access_token: token } = await this.oauthProvider.getToken(code as string);
-      res.cookie('token', token, cookie.options);
-      res.status(302).redirect(clientUri);
+      const { client_uri } = config;
+      const { access_token } = await this.oauthProvider.getToken(code as string);
+      res.cookie('token', access_token, cookie.options);
+      res.status(302).redirect(client_uri);
     } catch (err) {
       logger.error(err);
       return res.status(403).send({ message: 'bad oauth request' });
