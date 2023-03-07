@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "ts-node-dev --respawn --transpile-only --watch .env --ignore-watch node_modules --cls src/index.ts",
+    "lint": "eslint --ext .ts src",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
