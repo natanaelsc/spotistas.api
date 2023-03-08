@@ -1,19 +1,21 @@
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
+import { type CookieOptions } from 'express';
 import config from '../config/env';
 
-const options = {
+const options: CookieOptions = {
   maxAge: 24 * 60 * 60 * 1000,
-  SameSite: 'lax',
-  secure: true,
+  sameSite: 'lax',
+  path: '/',
+  secure: config.node.env === 'development',
   httpOnly: true,
 };
 
-const sessionOptions = {
+const sessionOptions: CookieSessionInterfaces.CookieSessionOptions = {
   name: 'session',
   secret: 'secret',
   maxAge: 24 * 60 * 60 * 1000,
-  SameSite: 'lax',
+  sameSite: 'lax',
   path: '/',
   secure: config.node.env === 'development',
   httpOnly: true,
@@ -22,7 +24,6 @@ const sessionOptions = {
 const cookieMiddleware = {
   session: cookieSession(sessionOptions),
   parser: cookieParser(),
-  sessionOptions,
   options,
 };
 
