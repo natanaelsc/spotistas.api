@@ -23,3 +23,9 @@ GET http://localhost:5001/oauth/callback
 ```
 
 É chamado pelo provedor oauth após o usuário concluir com sucesso a autenticação e aceite dos termos.
+
+### Artista do Mês
+
+```http
+GET http://localhost:5001/artists/month
+```
