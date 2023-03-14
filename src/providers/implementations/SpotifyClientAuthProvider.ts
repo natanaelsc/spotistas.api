@@ -1,7 +1,11 @@
+import config from '../../config/env';
 import { type ClientAuthProvider } from './../ClientAuthProvider';
 
 export class SpotifyClientAuthProvider implements ClientAuthProvider {
-  getAccessToken = async (client_id: string, client_secret: string): Promise<string> => {
+  private readonly clientId = config.spotify.client_id;
+  private readonly clientSecret = config.spotify.client_secret;
+
+  getAccessToken = async (): Promise<string> => {
     const response: Response = await fetch('https://accounts.spotify.com/api/token', {
       method: 'POST',
       headers: {
@@ -9,8 +13,8 @@ export class SpotifyClientAuthProvider implements ClientAuthProvider {
       },
       body: new URLSearchParams({
         grant_type: 'client_credentials',
-        client_id,
-        client_secret,
+        client_id: this.clientId,
+        client_secret: this.clientSecret,
       }),
     });
     let accessToken;
