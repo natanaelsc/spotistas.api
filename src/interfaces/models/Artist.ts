@@ -1,3 +1,5 @@
+import { type Track } from './Track';
+
 export interface Artist {
   id: string;
   name: string;
@@ -6,4 +8,8 @@ export interface Artist {
   popularity: number;
   followers: number;
   external_url: string;
+}
+
+export interface ArtistMonth extends Artist {
+  tracks: Track[];
 }
