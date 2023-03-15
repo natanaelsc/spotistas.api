@@ -29,3 +29,25 @@ GET http://localhost:5001/oauth/callback
 ```http
 GET http://localhost:5001/artists/month
 ```
+
+### Top 5 Brasil
+
+```http
+GET /tracks/topBrazil
+```
+
+```http
+GET /tracks?top=br&limit=5
+```
+
+Você pode customizar a quantidade de músicas retornas com `limit`:
+
+```http
+GET /tracks/topBrazil?limit=10
+```
+
+```http
+GET /tracks?top=br&limit=10
+```
+
+Com essa query você tera um *Top 10 Brasil*.

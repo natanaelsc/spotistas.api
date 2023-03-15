@@ -9,7 +9,7 @@ const router = Router();
 const trackService = new TrackService(new SpotifyClientAuthProvider(), new SpotifyPlaylistProvider());
 const trackController = new TrackController(trackService);
 
-router.get('/', trackController.getTrack); // tracks?top=br&limit=5
+router.get('/', trackController.getTrack);
 router.get('/topBrazil', trackController.getTrack);
 
 export default router as Router;
