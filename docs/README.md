@@ -9,7 +9,7 @@ Aqui a requisição deve ser feita em um navegador web onde o token de acesso de
 #### Autenticação
 
 ```http
-GET http://localhost:5001/oauth
+GET /oauth
 ```
 
 Redireciona o usuário para a página de login do provedor oauth.
@@ -19,7 +19,7 @@ Altere no arquivo `.env` em `CLIENT_URI` para a url do cliente frontend.
 #### Callback
 
 ```http
-GET http://localhost:5001/oauth/callback
+GET /oauth/callback
 ```
 
 É chamado pelo provedor oauth após o usuário concluir com sucesso a autenticação e aceite dos termos.
@@ -27,7 +27,7 @@ GET http://localhost:5001/oauth/callback
 ### Artista do Mês
 
 ```http
-GET http://localhost:5001/artists/month
+GET /artists/month
 ```
 
 ### Top 5 Brasil
