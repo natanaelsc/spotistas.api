@@ -21,6 +21,12 @@ export class ArtistService {
       image: track.album.images[0].url,
       preview_url: track.preview_url,
       external_url: track.external_urls.spotify,
+      album: {
+        id: track.album.id,
+        name: track.album.name,
+        image: track.album.images[0].url,
+        external_url: track.album.external_urls.spotify,
+      },
     }));
     return {
       ...artist,

@@ -1,4 +1,5 @@
-import { type ArtistProvider, type TrackDto } from '../ArtistProvider';
+import { type ArtistProvider } from '../ArtistProvider';
+import { type TrackDto } from '../TrackProvider';
 
 export class SpotifyArtistProvider implements ArtistProvider {
   getArtistTopTracks = async (token: string, id: string): Promise<TrackDto[]> => {
