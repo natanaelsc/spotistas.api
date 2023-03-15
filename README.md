@@ -6,7 +6,7 @@ Este é o repositório do backend Spotistas.
 
 Para executar a aplicação, siga as etapas abaixo:
 
-1. Baixe e instale o [GitBash](https://git-scm.com/downloads) e o [Node.js](https://nodejs.org/en/) versão LTS.
+1. Baixe e instale o [Git Bash](https://git-scm.com/downloads) e o [Node.js](https://nodejs.org/en/) versão LTS.
 
 2. Clone este repositório.
 
