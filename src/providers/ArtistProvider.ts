@@ -1,10 +1,10 @@
-import { type TrackDto } from './TrackProvider';
+import { type TrackProviderDto } from './TrackProvider';
 
 export interface ArtistProvider {
-  getArtistTopTracks: (token: string, id: string) => Promise<TrackDto[]>;
+  getArtistTopTracks: (token: string, id: string) => Promise<TrackProviderDto[]>;
 }
 
-export interface ArtistDto {
+export interface ArtistProviderDto {
   id: string;
   name: string;
   images: Array<{ url: string }>;

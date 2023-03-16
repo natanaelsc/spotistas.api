@@ -1,19 +1,19 @@
-import { type TrackDto } from './TrackProvider';
+import { type TrackProviderDto } from './TrackProvider';
 
 export interface PlaylistProvider {
-  getPlaylist: (token: string, id: string) => Promise<PlaylistDto>;
+  getPlaylist: (token: string, id: string) => Promise<PlaylistProviderDto>;
 }
 
-export interface PlaylistDto {
+export interface PlaylistProviderDto {
   id: string;
   name: string;
   description: string;
   images: Array<{ url: string }>;
   followers: { total: number };
   external_urls: { spotify: string };
-  tracks: TrackDto[];
+  tracks: TrackProviderDto[];
 }
 
-export interface ItemDto {
-  track: TrackDto;
+export interface ItemProviderDto {
+  track: TrackProviderDto;
 }
