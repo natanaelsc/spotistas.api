@@ -5,9 +5,10 @@ export interface TrackProvider {
 export interface TrackDto {
   id: string;
   name: string;
-  album: AlbumDto;
   preview_url: string;
   external_urls: { spotify: string };
+  duration_ms: number;
+  album: AlbumDto;
 }
 
 export interface AlbumDto {

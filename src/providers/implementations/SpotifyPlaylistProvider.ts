@@ -20,6 +20,7 @@ export class SpotifyPlaylistProvider implements PlaylistProvider {
         name: item.track.name,
         preview_url: item.track.preview_url,
         external_urls: item.track.external_urls,
+        duration_ms: item.track.duration_ms,
         album: {
           id: item.track.album.id,
           name: item.track.album.name,

@@ -6,5 +6,6 @@ export interface Track {
   image: string;
   preview_url: string;
   external_url: string;
+  duration_ms: number;
   album: Album;
 }
