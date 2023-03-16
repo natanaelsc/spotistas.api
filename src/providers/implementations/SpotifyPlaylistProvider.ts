@@ -1,7 +1,7 @@
-import { type ItemDto, type PlaylistDto, type PlaylistProvider } from '../PlaylistProvider';
+import { type ItemProviderDto, type PlaylistProvider, type PlaylistProviderDto } from '../PlaylistProvider';
 
 export class SpotifyPlaylistProvider implements PlaylistProvider {
-  getPlaylist = async (token: string, id: string): Promise<PlaylistDto> => {
+  getPlaylist = async (token: string, id: string): Promise<PlaylistProviderDto> => {
     const response: Response = await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -15,7 +15,7 @@ export class SpotifyPlaylistProvider implements PlaylistProvider {
       images: data.images,
       followers: data.followers,
       external_urls: data.external_urls,
-      tracks: data.tracks.items.map((item: ItemDto) => ({
+      tracks: data.tracks.items.map((item: ItemProviderDto) => ({
         id: item.track.id,
         name: item.track.name,
         preview_url: item.track.preview_url,
@@ -29,6 +29,6 @@ export class SpotifyPlaylistProvider implements PlaylistProvider {
         },
       })),
     };
-    return playlist as PlaylistDto;
+    return playlist as PlaylistProviderDto;
   };
 }

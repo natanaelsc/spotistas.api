@@ -1,17 +1,17 @@
 export interface TrackProvider {
-  getTrack: (token: string, id: string) => Promise<TrackDto>;
+  getTrack: (token: string, id: string) => Promise<TrackProviderDto>;
 }
 
-export interface TrackDto {
+export interface TrackProviderDto {
   id: string;
   name: string;
   preview_url: string;
   external_urls: { spotify: string };
   duration_ms: number;
-  album: AlbumDto;
+  album: AlbumProviderDto;
 }
 
-export interface AlbumDto {
+export interface AlbumProviderDto {
   id: string;
   name: string;
   images: Array<{ url: string }>;
