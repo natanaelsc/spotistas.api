@@ -21,4 +21,6 @@ const config = {
   client_uri: String(process.env.CLIENT_URI),
 };
 
+if (config.node.env !== 'production') config.node.cors = ['*'];
+
 export default config;
