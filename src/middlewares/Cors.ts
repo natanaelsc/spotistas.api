@@ -9,26 +9,18 @@ export class Cors {
   private static readonly configure = (): CorsOptions => {
     return {
       origin: this._origin,
-      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-      allowedHeaders: [
-        'Content-Type',
-        'Authorization',
-        'X-Requested-With',
-        'X-HTTP-Method-Override',
-        'Accept',
-        'Origin',
-        'Access-Control-Allow-Origin',
-      ],
+      methods: ['GET', 'POST'],
       credentials: true,
     };
   };
 
   public static readonly middleware = (req: Request, res: Response, next: NextFunction): void => {
+    logger.debug('CORS:', req.method, req.url);
     cors(this.configure())(req, res, next);
   };
 
   static {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    this._origin ? logger.debug('CORS:', this.configure()) : logger.warn('CORS: DISABLED');
+    this._origin ? logger.debug('CORS:', this._origin) : logger.warn('CORS: DISABLED');
   }
 }
