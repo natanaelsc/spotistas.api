@@ -9,8 +9,6 @@ export class Cors {
   private static readonly configure = (): CorsOptions => {
     return {
       origin: this._origin,
-      methods: ['GET', 'POST'],
-      credentials: true,
     };
   };
 
@@ -20,6 +18,6 @@ export class Cors {
 
   static {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    logger.debug('CORS:', this._origin ? this._origin : 'DISABLED');
+    this._origin ? logger.debug('CORS:', this._origin) : logger.warn('CORS: DISABLED');
   }
 }
