@@ -4,11 +4,13 @@ import { Env } from '../config/Env';
 import logger from '../config/logger';
 
 export class Cors {
-  private static readonly _origin = Env.getList('CORS')[0].includes('*') ? false : Env.getList('CORS') ?? true;
+  private static readonly _origin = Env.get('CORS')[0].includes('*') ? false : Env.get('CORS') ?? true;
 
   private static readonly configure = (): CorsOptions => {
     return {
       origin: this._origin,
+      methods: ['GET', 'POST'],
+      credentials: true,
     };
   };
 
@@ -18,6 +20,6 @@ export class Cors {
 
   static {
     // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
-    this._origin ? logger.debug('CORS:', this._origin) : logger.warn('CORS: DISABLED');
+    this._origin ? logger.debug('CORS:', this.configure()) : logger.warn('CORS: DISABLED');
   }
 }
