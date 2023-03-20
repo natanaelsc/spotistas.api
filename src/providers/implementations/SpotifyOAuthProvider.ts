@@ -1,22 +1,23 @@
-import config from '../../config/env';
+import { Env } from '../../config/Env';
 import { type OAuthProvider, type OAuthProviderDto } from '../OAuthProvider';
 
 export class SpotifyOAuthProvider implements OAuthProvider {
-  private readonly clientId = config.spotify.client_id;
-  private readonly clientSecret = config.spotify.client_secret;
-  private readonly redirectUri = config.spotify.redirect_uri;
+  private readonly _clientId = Env.get('SPOTIFY_CLIENT_ID');
+  private readonly _clientSecret = Env.get('SPOTIFY_CLIENT_SECRET');
+  private readonly _redirectUri = Env.get('SPOTIFY_REDIRECT_URI');
+  private readonly _scope = Env.get('SPOTIFY_SCOPE');
+  private readonly _showDialog = Env.get('SPOTIFY_SHOW_DIALOG');
 
   getRedirectUri = (state: string): string => {
-    const { scope, show_dialog } = config.spotify;
     const redirectUri =
       'https://accounts.spotify.com/authorize?' +
       new URLSearchParams({
-        client_id: this.clientId,
+        client_id: this._clientId,
         response_type: 'code',
-        redirect_uri: this.redirectUri,
+        redirect_uri: this._redirectUri,
         state,
-        scope,
-        show_dialog,
+        scope: this._scope,
+        show_dialog: this._showDialog,
       }).toString();
     return redirectUri;
   };
@@ -30,9 +31,9 @@ export class SpotifyOAuthProvider implements OAuthProvider {
       body: new URLSearchParams({
         grant_type: 'authorization_code',
         code,
-        redirect_uri: this.redirectUri,
-        client_id: this.clientId,
-        client_secret: this.clientSecret,
+        redirect_uri: this._redirectUri,
+        client_id: this._clientId,
+        client_secret: this._clientSecret,
       }),
     });
     const data: OAuthProviderDto = await response.json();

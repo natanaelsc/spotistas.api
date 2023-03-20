@@ -1,5 +1,5 @@
 import morgan, { type StreamOptions } from 'morgan';
-import config from '../config/env';
+import { Env } from '../config/Env';
 import logger from '../config/logger';
 
 const stream: StreamOptions = {
@@ -9,8 +9,7 @@ const stream: StreamOptions = {
 };
 
 const skip = (): boolean => {
-  const enviroment = config.node.env;
-  return enviroment !== 'development';
+  return Env.isProduction();
 };
 
 const morganMiddleware = morgan('dev', {

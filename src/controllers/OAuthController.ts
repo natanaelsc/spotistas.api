@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import config from '../config/env';
+import { Env } from '../config/Env';
 import logger from '../config/logger';
 import { generateRandomString } from '../helpers/crypto';
 import cookie from '../middlewares/cookie';
@@ -24,10 +24,10 @@ export class OAuthController {
     if (state !== storedState) return res.status(400).send({ error: 'state mismatch' });
     res.clearCookie(this.stateKey);
     try {
-      const { client_uri } = config;
+      const clientURI = Env.get('CLIENT_URI');
       const { access_token } = await this.oauthProvider.getToken(code as string);
       res.cookie('token', access_token, cookie.options);
-      res.status(302).redirect(client_uri);
+      res.status(302).redirect(clientURI);
     } catch (err) {
       logger.error(err);
       return res.status(403).send({ message: 'bad oauth request' });

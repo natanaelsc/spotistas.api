@@ -1,13 +1,15 @@
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
 import { type CookieOptions } from 'express';
-import config from '../config/env';
+import { Env } from '../config/Env';
+
+const secure = Env.isProduction();
 
 const options: CookieOptions = {
   maxAge: 24 * 60 * 60 * 1000,
   sameSite: 'lax',
   path: '/',
-  secure: config.node.env === 'development',
+  secure,
   httpOnly: true,
 };
 
@@ -17,7 +19,7 @@ const sessionOptions: CookieSessionInterfaces.CookieSessionOptions = {
   maxAge: 24 * 60 * 60 * 1000,
   sameSite: 'lax',
   path: '/',
-  secure: config.node.env === 'development',
+  secure,
   httpOnly: true,
 };
 

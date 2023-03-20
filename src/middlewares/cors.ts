@@ -1,7 +1,7 @@
 import cors, { type CorsOptions } from 'cors';
-import config from '../config/env';
+import { Env } from '../config/Env';
 
-const origin = config.node.cors[0].includes('*') ? false : config.node.cors;
+const origin = Env.getList('CORS')[0].includes('*') ? false : Env.getList('CORS') ?? true;
 
 const corsOptions: CorsOptions = {
   origin,

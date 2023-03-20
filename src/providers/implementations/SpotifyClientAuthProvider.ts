@@ -1,9 +1,9 @@
-import config from '../../config/env';
+import { Env } from '../../config/Env';
 import { type ClientAuthProvider } from './../ClientAuthProvider';
 
 export class SpotifyClientAuthProvider implements ClientAuthProvider {
-  private readonly clientId = config.spotify.client_id;
-  private readonly clientSecret = config.spotify.client_secret;
+  private readonly clientId = Env.get('SPOTIFY_CLIENT_ID');
+  private readonly clientSecret = Env.get('SPOTIFY_CLIENT_SECRET');
 
   getAccessToken = async (): Promise<string> => {
     const response: Response = await fetch('https://accounts.spotify.com/api/token', {
