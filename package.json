@@ -4,8 +4,12 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "node dist/index.js",
     "start:dev": "ts-node-dev --respawn --transpile-only --watch .env --ignore-watch node_modules --cls src/index.ts",
+    "build": "./node_modules/.bin/tsc -p tsconfig.json",
+    "build:clean": "rm -rf dist && npm run build",
     "lint": "eslint --ext .ts src",
+    "lint:fix": "eslint --ext .ts src --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install"
   },
