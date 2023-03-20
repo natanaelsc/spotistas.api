@@ -9,7 +9,16 @@ export class Cors {
   private static readonly configure = (): CorsOptions => {
     return {
       origin: this._origin,
-      methods: ['GET', 'POST'],
+      methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+      allowedHeaders: [
+        'Content-Type',
+        'Authorization',
+        'X-Requested-With',
+        'X-HTTP-Method-Override',
+        'Accept',
+        'Origin',
+        'Access-Control-Allow-Origin',
+      ],
       credentials: true,
     };
   };
