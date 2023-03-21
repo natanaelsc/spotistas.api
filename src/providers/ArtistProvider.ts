@@ -1,6 +1,7 @@
 import { type TrackProviderDto } from './TrackProvider';
 
 export interface ArtistProvider {
+  getArtist: (token: string, id: string) => Promise<ArtistProviderDto>;
   getArtistTopTracks: (token: string, id: string) => Promise<TrackProviderDto[]>;
 }
 
