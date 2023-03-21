@@ -1,6 +1,6 @@
 import { type MapperProvider } from '../../interfaces/mappers/MapperProvider';
 import { type Track } from '../../interfaces/models/Track';
-import { type TrackProviderDto } from '../../providers/TrackProvider';
+import { type TrackProviderDto } from '../../interfaces/providers';
 
 export class TrackMapperProvider implements MapperProvider<Track, TrackProviderDto> {
   toModel = (data: TrackProviderDto): Track => {

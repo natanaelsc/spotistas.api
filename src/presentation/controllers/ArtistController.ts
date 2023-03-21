@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express';
-import { HttpStatus } from '../presentation/http';
-import { type ArtistService } from '../services/ArtistService';
+import { type ArtistService } from '../../services/ArtistService';
+import { HttpStatus } from '../http';
 
 export class ArtistController {
   constructor(private readonly artistService: ArtistService) {}

@@ -1,4 +1,4 @@
-import { type UserProvider, type UserProviderDto } from '../UserProvider';
+import { type UserProvider, type UserProviderDto } from '../../interfaces/providers';
 
 export class SpotifyUserProvider implements UserProvider {
   getUser = async (token: string): Promise<UserProviderDto> => {

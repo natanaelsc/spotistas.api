@@ -5,7 +5,7 @@
     "moduleResolution": "node",
     "rootDir": "./src",
     "outDir": "./dist",
-    "typeRoots": ["./src/helpers/types"],
+    "typeRoots": ["src/infra/helpers/types"],
     "removeComments": true,
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true,

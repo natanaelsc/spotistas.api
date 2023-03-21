@@ -1,5 +1,5 @@
-import { Env } from '../../config/Env';
-import { type ItemProviderDto, type PlaylistProvider, type PlaylistProviderDto } from '../PlaylistProvider';
+import { type ItemProviderDto, type PlaylistProvider, type PlaylistProviderDto } from '../../interfaces/providers';
+import { Env } from '../../main/config';
 
 export class SpotifyPlaylistProvider implements PlaylistProvider {
   private readonly userId = Env.get('SPOTIFY_USER_ID');

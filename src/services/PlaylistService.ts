@@ -1,6 +1,6 @@
+import { type SpotifyClientAuthProvider } from '../infra/providers';
 import { type Playlist } from '../interfaces/models/Playlist';
-import { type PlaylistProvider } from '../providers/PlaylistProvider';
-import { type SpotifyClientAuthProvider } from '../providers/implementations/SpotifyClientAuthProvider';
+import { type PlaylistProvider } from '../interfaces/providers';
 
 export class PlaylistService {
   constructor(

@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express';
-import logger from '../config/logger';
-import { type TrackService } from '../services/TrackService';
-import { HttpStatus } from './../presentation/http';
+import logger from '../../main/config/logger';
+import { type TrackService } from '../../services/TrackService';
+import { HttpStatus } from '../http';
 
 export class TrackController {
   constructor(private readonly trackService: TrackService) {}

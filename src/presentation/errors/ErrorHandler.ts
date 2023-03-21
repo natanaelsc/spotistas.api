@@ -1,4 +1,4 @@
-import logger from '../../config/logger';
+import logger from '../../main/config/logger';
 import { HttpStatus, type HttpClientResponse } from '../http';
 import { CustomError } from './CustomError';
 

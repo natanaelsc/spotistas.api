@@ -1,8 +1,8 @@
 import cookieParser from 'cookie-parser';
 import cookieSession from 'cookie-session';
+import { type CookieOptions, type HttpRequest, type HttpResponse } from '../../presentation/http';
 import { Env } from '../config/Env';
 import logger from '../config/logger';
-import { type CookieOptions, type HttpRequest, type HttpResponse } from '../presentation/http';
 
 export class Cookie {
   private static readonly _secure = Env.isProduction();

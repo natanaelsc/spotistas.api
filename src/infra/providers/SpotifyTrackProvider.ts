@@ -1,4 +1,4 @@
-import { type TrackProvider, type TrackProviderDto } from '../TrackProvider';
+import { type TrackProvider, type TrackProviderDto } from '../../interfaces/providers';
 
 export class SpotifyTrackProvider implements TrackProvider {
   getTrack = async (token: string, id: string): Promise<TrackProviderDto> => {

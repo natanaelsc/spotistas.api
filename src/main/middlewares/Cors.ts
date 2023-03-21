@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import cors, { type CorsOptions } from 'cors';
 import { type NextFunction, type Request, type Response } from 'express';
-import { Env } from '../config/Env';
+import { Env } from '../config';
 import logger from '../config/logger';
 
 export class Cors {

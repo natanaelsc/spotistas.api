@@ -1,7 +1,7 @@
 import { type NextFunction, type Request, type Response } from 'express';
-import { ErrorHandler } from '../presentation/errors/ErrorHandler';
-import { HttpStatus } from '../presentation/http';
-import { SpotifyUserProvider } from '../providers/implementations/SpotifyUserProvider';
+import { SpotifyUserProvider } from '../../infra/providers';
+import { ErrorHandler } from '../../presentation/errors';
+import { HttpStatus } from '../../presentation/http';
 import { Cookie } from './Cookie';
 
 export class Auth {

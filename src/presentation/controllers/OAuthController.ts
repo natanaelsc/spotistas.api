@@ -1,10 +1,10 @@
 import { type Request, type Response } from 'express';
-import { Env } from '../config/Env';
-import logger from '../config/logger';
-import { generateRandomString } from '../helpers/crypto';
-import { HttpStatus } from '../presentation/http';
-import { Cookie } from './../middlewares/Cookie';
-import { type OAuthProvider } from './../providers/OAuthProvider';
+import { generateRandomString } from '../../infra/helpers/crypto';
+import { type OAuthProvider } from '../../interfaces/providers';
+import { Env } from '../../main/config';
+import logger from '../../main/config/logger';
+import { Cookie } from '../../main/middlewares';
+import { HttpStatus } from '../http';
 
 export class OAuthController {
   private readonly _stateKey = 'auth.state';

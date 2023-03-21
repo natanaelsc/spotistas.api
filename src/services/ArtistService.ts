@@ -1,8 +1,7 @@
+import db from '../infra/database/db.json';
 import { type ArtistMonth } from '../interfaces/models/Artist';
 import { type Track } from '../interfaces/models/Track';
-import { type ArtistProvider } from '../providers/ArtistProvider';
-import { type ClientAuthProvider } from '../providers/ClientAuthProvider';
-import db from './../database/db.json';
+import { type ArtistProvider, type ClientAuthProvider } from '../interfaces/providers';
 
 export class ArtistService {
   private readonly db = db.artists;

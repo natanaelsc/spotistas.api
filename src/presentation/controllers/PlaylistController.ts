@@ -1,7 +1,7 @@
 import { type Request, type Response } from 'express';
-import logger from '../config/logger';
-import { type PlaylistService } from '../services/PlaylistService';
-import { HttpStatus } from './../presentation/http';
+import logger from '../../main/config/logger';
+import { type PlaylistService } from '../../services/PlaylistService';
+import { HttpStatus } from '../http';
 
 export class PlaylistController {
   constructor(private readonly playlistService: PlaylistService) {}

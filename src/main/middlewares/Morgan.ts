@@ -1,5 +1,5 @@
 import morgan, { type StreamOptions } from 'morgan';
-import { Env } from '../config/Env';
+import { Env } from '../config';
 import logger from '../config/logger';
 
 export class Morgan {

@@ -1,10 +1,13 @@
+import db from '../infra/database/db.json';
 import { type MapperProvider } from '../interfaces/mappers/MapperProvider';
-import { type ArtistProvider } from '../providers/ArtistProvider';
-import { type ClientAuthProvider } from '../providers/ClientAuthProvider';
-import { type PlaylistProvider } from '../providers/PlaylistProvider';
-import { type TrackProvider, type TrackProviderDto } from '../providers/TrackProvider';
-import db from './../database/db.json';
-import { type MusicOfDay, type Track } from './../interfaces/models/Track';
+import { type MusicOfDay, type Track } from '../interfaces/models/Track';
+import {
+  type ArtistProvider,
+  type ClientAuthProvider,
+  type PlaylistProvider,
+  type TrackProvider,
+  type TrackProviderDto,
+} from '../interfaces/providers';
 
 export class TrackService {
   private readonly db = db;

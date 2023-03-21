@@ -1,5 +1,5 @@
-import { Env } from '../../config/Env';
-import { type ClientAuthProvider } from './../ClientAuthProvider';
+import { type ClientAuthProvider } from '../../interfaces/providers';
+import { Env } from '../../main/config/Env';
 
 export class SpotifyClientAuthProvider implements ClientAuthProvider {
   private readonly clientId = Env.get('SPOTIFY_CLIENT_ID');
