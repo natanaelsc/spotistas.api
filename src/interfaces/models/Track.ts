@@ -12,3 +12,7 @@ export interface Track {
   artists?: Artist[];
   album: Album;
 }
+
+export interface MusicOfDay extends Track {
+  note: string;
+}
