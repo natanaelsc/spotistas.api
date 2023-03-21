@@ -3,8 +3,7 @@ import express, { type Express } from 'express';
 import http from 'http';
 import { Env } from './config/Env';
 import logger from './config/logger';
-import { Cors, Morgan } from './middlewares';
-import cookieMiddleware from './middlewares/cookie';
+import { Cookie, Cors, Morgan } from './middlewares';
 import routes from './routes';
 
 export default class Server {
@@ -30,8 +29,8 @@ export default class Server {
   private readonly configure = (): void => {
     this._app.use(Morgan.middleware);
     this._app.use(Cors.middleware);
-    this._app.use(cookieMiddleware.parser);
-    this._app.use(cookieMiddleware.session);
+    this._app.use(Cookie.middleware.parser);
+    this._app.use(Cookie.middleware.session);
     this._app.use(express.json());
     this._app.use(express.urlencoded({ extended: true }));
     this._app.use(routes);
