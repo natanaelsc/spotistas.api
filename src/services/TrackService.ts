@@ -20,6 +20,14 @@ export class TrackService {
         preview_url: track.preview_url,
         external_url: track.external_urls.spotify,
         duration_ms: track.duration_ms,
+        popularity: track.popularity,
+        artists: track.artists.map(artist => ({
+          id: artist.id,
+          name: artist.name,
+          genres: artist.genres,
+          popularity: artist.popularity,
+          external_url: artist.external_urls.spotify,
+        })),
         album: {
           id: track.album.id,
           name: track.album.name,

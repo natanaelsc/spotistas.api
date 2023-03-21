@@ -22,6 +22,7 @@ export class ArtistService {
       preview_url: track.preview_url,
       external_url: track.external_urls.spotify,
       duration_ms: track.duration_ms,
+      popularity: track.popularity,
       album: {
         id: track.album.id,
         name: track.album.name,

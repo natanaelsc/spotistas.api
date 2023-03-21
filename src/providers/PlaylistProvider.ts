@@ -12,7 +12,7 @@ export interface PlaylistProviderDto {
   images: Array<{ url: string }>;
   followers: { total: number };
   external_urls: { spotify: string };
-  tracks?: TrackProviderDto[];
+  tracks: TrackProviderDto[];
 }
 
 export interface ItemProviderDto {
