@@ -1,3 +1,4 @@
+import { Convert } from '../../infra/helpers';
 import logger from './logger';
 
 export class Env {
@@ -28,6 +29,12 @@ export class Env {
     if (process.env[key] === '') this.set(key, value);
     if (process.env[key] === 'undefined') this.set(key, value);
   };
+
+  public static get stdTTL(): number {
+    const str = this.get('CACHE_TTL', '30m');
+    const ttl = Convert.toSeconds(str);
+    return Number.isNaN(ttl) ? 0 : ttl;
+  }
 
   static {
     this.isProduction() && logger.info('🚀 Production Mode\n');
