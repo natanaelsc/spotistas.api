@@ -1,6 +1,7 @@
 import { type Request, type Response } from 'express';
 import logger from '../config/logger';
 import { type PlaylistService } from '../services/PlaylistService';
+import { HttpStatus } from './../presentation/http';
 
 export class PlaylistController {
   constructor(private readonly playlistService: PlaylistService) {}
@@ -8,10 +9,11 @@ export class PlaylistController {
   getOurPlaylists = async (req: Request, res: Response): Promise<Response> => {
     const { limit } = req.query;
     const limitToNumber = limit == null ? 5 : Number(limit);
-    if (Number.isNaN(limitToNumber)) return res.status(400).send({ error: 'limit must be a number' });
+    if (Number.isNaN(limitToNumber))
+      return res.status(HttpStatus.BAD_REQUEST).send({ error: 'limit must be a number' });
     try {
       const playlists = await this.playlistService.getOurPlaylists(limitToNumber);
-      res.status(200).json(playlists);
+      res.status(HttpStatus.OK).json(playlists);
     } catch (error) {
       logger.error(error);
     }
