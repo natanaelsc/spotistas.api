@@ -26,6 +26,7 @@ export class ArtistService {
         id: track.album.id,
         name: track.album.name,
         image: track.album.images[0].url,
+        release_date: track.album.release_date,
         external_url: track.album.external_urls.spotify,
       },
     }));
