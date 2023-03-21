@@ -1,6 +1,9 @@
+import { Env } from '../../config/Env';
 import { type ItemProviderDto, type PlaylistProvider, type PlaylistProviderDto } from '../PlaylistProvider';
 
 export class SpotifyPlaylistProvider implements PlaylistProvider {
+  private readonly userId = Env.get('SPOTIFY_USER_ID');
+
   getPlaylist = async (token: string, id: string): Promise<PlaylistProviderDto> => {
     const response: Response = await fetch(`https://api.spotify.com/v1/playlists/${id}`, {
       headers: {
@@ -30,5 +33,23 @@ export class SpotifyPlaylistProvider implements PlaylistProvider {
       })),
     };
     return playlist as PlaylistProviderDto;
+  };
+
+  getOurPlaylists = async (token: string): Promise<PlaylistProviderDto[]> => {
+    const response: Response = await fetch(`https://api.spotify.com/v1/users/${this.userId}/playlists`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    const data = await response.json();
+    const playlists = data.items.map((playlist: PlaylistProviderDto) => ({
+      id: playlist.id,
+      name: playlist.name,
+      description: playlist.description,
+      images: playlist.images,
+      followers: playlist.followers,
+      external_urls: playlist.external_urls,
+    }));
+    return playlists as PlaylistProviderDto[];
   };
 }
