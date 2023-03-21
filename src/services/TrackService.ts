@@ -11,6 +11,7 @@ export class TrackService {
   getTop = async (top = 'brazil', limit = 5): Promise<Track[]> => {
     const token = await this.clientAuthProvider.getAccessToken();
     const playlist = await this.playlistProvider.getPlaylist(token, '37i9dQZF1DX0FOF1IUWK1W');
+    if (playlist.tracks == null) return [];
     const tracks: Track[] = playlist.tracks
       .map(track => ({
         id: track.id,
