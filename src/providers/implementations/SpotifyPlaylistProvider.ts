@@ -24,6 +24,14 @@ export class SpotifyPlaylistProvider implements PlaylistProvider {
         preview_url: item.track.preview_url,
         external_urls: item.track.external_urls,
         duration_ms: item.track.duration_ms,
+        popularity: item.track.popularity,
+        artists: item.track.artists.map(artist => ({
+          id: artist.id,
+          name: artist.name,
+          genres: artist.genres,
+          popularity: artist.popularity,
+          external_urls: artist.external_urls,
+        })),
         album: {
           id: item.track.album.id,
           name: item.track.album.name,

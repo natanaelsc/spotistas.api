@@ -1,0 +1,28 @@
+{
+  "artists": [
+    {
+      "id": "6M2wZ9GZgrQXHCFfjv46we",
+      "name": "Dua Lipa",
+      "image": "https://i.scdn.co/image/ab6761610000e5ebd42a27db3286b58553da8858",
+      "genres": [
+        "dance pop",
+        "pop",
+        "uk pop"
+      ],
+      "popularity": 90,
+      "followers": 38999408,
+      "external_url": "https://open.spotify.com/artist/6M2wZ9GZgrQXHCFfjv46we"
+    }
+  ],
+  "playlists": [
+    {
+      "id": "37i9dQZEVXbMXbN3EUUhlg"
+    }
+  ],
+  "tracks": [
+    {
+      "id": "5QDLhrAOJJdNAmCTJ8xMyW",
+      "note": "'Dynamite' é uma música disco-pop animada que canta alegria e confiança, trazendo uma nova onda de 'energia' para revigorar a comunidade durantes esses tempos difíceis."
+    }
+  ]
+}
