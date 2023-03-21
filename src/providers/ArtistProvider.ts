@@ -10,4 +10,6 @@ export interface ArtistProviderDto {
   images: Array<{ url: string }>;
   genres: string[];
   popularity: number;
+  followers: { total: number };
+  external_urls: { spotify: string };
 }
