@@ -1,10 +1,13 @@
-import { type Track } from '../interfaces/models/Track';
 import { type ArtistProvider } from '../providers/ArtistProvider';
 import { type ClientAuthProvider } from '../providers/ClientAuthProvider';
 import { type PlaylistProvider } from '../providers/PlaylistProvider';
 import { type TrackProvider } from '../providers/TrackProvider';
+import db from './../database/db.json';
+import { type MusicOfDay, type Track } from './../interfaces/models/Track';
 
 export class TrackService {
+  private readonly db = db;
+
   constructor(
     private readonly clientAuthProvider: ClientAuthProvider,
     private readonly trackProvider: TrackProvider,
@@ -42,7 +45,7 @@ export class TrackService {
 
   getTop = async (top = 'brazil', limit = 5): Promise<Track[]> => {
     const token = await this.clientAuthProvider.getAccessToken();
-    const playlist = await this.playlistProvider.getPlaylist(token, '37i9dQZF1DX0FOF1IUWK1W');
+    const playlist = await this.playlistProvider.getPlaylist(token, this.db.playlists[0].id);
     if (playlist.tracks == null) return [];
     const tracks: Track[] = playlist.tracks
       .map(track => ({
@@ -72,10 +75,17 @@ export class TrackService {
     return tracks;
   };
 
-  getTrackOfTheDay = async (): Promise<Track> => {
-    const track = await this.getTrack('5QDLhrAOJJdNAmCTJ8xMyW');
+  getTrackOfTheDay = async (): Promise<MusicOfDay> => {
+    const musicOfDay = this.db.tracks[0];
+    const track = await this.getTrack(musicOfDay.id);
     const token = await this.clientAuthProvider.getAccessToken();
-    if (track.artists == null) return track;
+    const note = musicOfDay.note;
+    if (track.artists == null) {
+      return {
+        ...track,
+        note,
+      };
+    }
     const artistId = track.artists[0].id;
     const artist = await this.artistProvider.getArtist(token, artistId);
     return {
@@ -90,6 +100,7 @@ export class TrackService {
           external_url: artist.external_urls.spotify,
         },
       ],
+      note,
     };
   };
 }

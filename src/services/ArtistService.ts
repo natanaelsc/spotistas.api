@@ -2,17 +2,18 @@ import { type ArtistMonth } from '../interfaces/models/Artist';
 import { type Track } from '../interfaces/models/Track';
 import { type ArtistProvider } from '../providers/ArtistProvider';
 import { type ClientAuthProvider } from '../providers/ClientAuthProvider';
-import { type ArtistRepository } from '../repositories/ArtistRepository';
+import db from './../database/db.json';
 
 export class ArtistService {
+  private readonly db = db.artists;
+
   constructor(
     private readonly clientAuthProvider: ClientAuthProvider,
-    private readonly artistProvider: ArtistProvider,
-    private readonly artistRepository: ArtistRepository
+    private readonly artistProvider: ArtistProvider
   ) {}
 
   getArtistMonth = async (): Promise<ArtistMonth> => {
-    const artist = await this.artistRepository.getArtistMonth();
+    const artist = this.db[0];
     const token = await this.clientAuthProvider.getAccessToken();
     const topTracks = await this.artistProvider.getArtistTopTracks(token, artist.id);
     const tracks: Track[] = topTracks.map(track => ({
