@@ -1,10 +1,11 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import cors, { type CorsOptions } from 'cors';
 import { type NextFunction, type Request, type Response } from 'express';
 import { Env } from '../config/Env';
 import logger from '../config/logger';
 
 export class Cors {
-  private static readonly _origin = Env.get('CORS')[0].includes('*') ? false : Env.get('CORS') ?? true;
+  private static readonly _origin = Env.get('CORS').includes('*') ? false : Env.getList('CORS') ?? true;
 
   private static readonly configure = (): CorsOptions => {
     return {
@@ -20,7 +21,6 @@ export class Cors {
   };
 
   static {
-    // eslint-disable-next-line @typescript-eslint/strict-boolean-expressions
     this._origin ? logger.debug('CORS:', this._origin) : logger.warn('CORS: DISABLED');
   }
 }
