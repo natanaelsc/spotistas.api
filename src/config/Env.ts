@@ -4,20 +4,29 @@ export class Env {
   public static readonly isProduction = (): boolean => process.env.NODE_ENV === 'production';
   public static readonly isDevelopment = (): boolean => process.env.NODE_ENV === 'development';
 
-  public static readonly get = (key: string, defaultValue = ''): string => {
-    return String(process.env[key]) ?? defaultValue;
+  public static readonly get = (key: string, defaultValue?: string): string => {
+    this.setDefaultValue(key, defaultValue);
+    return String(process.env[key]);
   };
 
-  public static readonly getList = (key: string, defaultValue: string[] = []): string[] => {
-    return process.env[key]?.split(',') ?? defaultValue;
+  public static readonly getList = (key: string, defaultValue?: string[]): string[] => {
+    this.setDefaultValue(key, defaultValue);
+    return String(process.env[key]).split(',');
   };
 
-  public static readonly getNumber = (key: string, defaultValue = 0): number => {
-    return Number(process.env[key]) ?? defaultValue;
+  public static readonly getNumber = (key: string, defaultValue?: number): number => {
+    this.setDefaultValue(key, defaultValue);
+    return Number(process.env[key]);
   };
 
-  public static readonly set = (key: string, value: EnvType): void => {
-    process.env[key] = value?.toString() ?? '';
+  private static readonly set = (key: string, value: EnvType): void => {
+    process.env[key] = String(value) ?? '';
+  };
+
+  private static readonly setDefaultValue = (key: string, value: EnvType): void => {
+    if (process.env[key] == null) this.set(key, value);
+    if (process.env[key] === '') this.set(key, value);
+    if (process.env[key] === 'undefined') this.set(key, value);
   };
 
   static {
