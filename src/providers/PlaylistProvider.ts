@@ -2,6 +2,7 @@ import { type TrackProviderDto } from './TrackProvider';
 
 export interface PlaylistProvider {
   getPlaylist: (token: string, id: string) => Promise<PlaylistProviderDto>;
+  getOurPlaylists: (token: string) => Promise<PlaylistProviderDto[]>;
 }
 
 export interface PlaylistProviderDto {
@@ -11,7 +12,7 @@ export interface PlaylistProviderDto {
   images: Array<{ url: string }>;
   followers: { total: number };
   external_urls: { spotify: string };
-  tracks: TrackProviderDto[];
+  tracks?: TrackProviderDto[];
 }
 
 export interface ItemProviderDto {
