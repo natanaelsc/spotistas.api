@@ -20,7 +20,7 @@ export class Env {
     return Number(process.env[key]);
   };
 
-  private static readonly set = (key: string, value: EnvType): void => {
+  public static readonly set = (key: string, value: EnvType): void => {
     process.env[key] = String(value) ?? '';
   };
 
