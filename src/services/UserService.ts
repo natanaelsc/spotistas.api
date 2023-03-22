@@ -48,6 +48,16 @@ export class UserService {
     }
   };
 
+  getUserTopGenres = async (token: string, time: string, limit: number): Promise<string[] | undefined> => {
+    try {
+      const artists = await this.userProvider.getTopArtists(token, this.setTimeRange(time));
+      const genres = artists.map(artist => artist.genres).flat();
+      return Array.from(new Set(genres)).slice(0, limit);
+    } catch (error) {
+      ErrorHandler.catch(error);
+    }
+  };
+
   private readonly setTimeRange = (timeRange: string): string => {
     if (timeRange === 'short') return TimeRange.SHORT;
     if (timeRange === 'medium') return TimeRange.MEDIUM;
