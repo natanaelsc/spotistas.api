@@ -25,7 +25,7 @@ export class Cache {
       return res.status(HttpStatus.OK);
     } catch (error) {
       ErrorHandler.catch(error);
-      return res.status(HttpStatus.SERVER_ERROR).send({ message: 'internal server error' });
+      return res.status(HttpStatus.SERVER_ERROR).send({ error: 'internal server error' });
     }
   };
 
