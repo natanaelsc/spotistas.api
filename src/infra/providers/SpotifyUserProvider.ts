@@ -1,4 +1,9 @@
-import { type TrackProviderDto, type UserProvider, type UserProviderDto } from '../../interfaces/providers';
+import {
+  type ArtistProviderDto,
+  type TrackProviderDto,
+  type UserProvider,
+  type UserProviderDto,
+} from '../../interfaces/providers';
 import { TimeRange } from '../apis/Spotify';
 import { HttpClient } from '../http/HttpClient';
 
@@ -22,5 +27,17 @@ export class SpotifyUserProvider implements UserProvider {
       token
     );
     return topTracks.items as TrackProviderDto[];
+  };
+
+  getTopArtists = async (
+    token: string,
+    time_range = this.time_range,
+    limit = this.limit
+  ): Promise<ArtistProviderDto[]> => {
+    const topArtists = await HttpClient.connect(
+      `${this._path}/top/artists?time_range=${time_range}&limit=${limit}`,
+      token
+    );
+    return topArtists.items as ArtistProviderDto[];
   };
 }
