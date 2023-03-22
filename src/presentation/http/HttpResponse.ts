@@ -20,13 +20,13 @@ export enum HttpStatus {
 }
 
 export interface CookieOptions {
-  name?: string | undefined;
-  secret?: string | undefined;
-  maxAge?: number | undefined;
-  signed?: boolean | undefined;
-  httpOnly?: boolean | undefined;
-  path?: string | undefined;
-  domain?: string | undefined;
-  secure?: boolean | undefined;
-  sameSite?: boolean | 'lax' | 'strict' | 'none' | undefined;
+  name?: string;
+  secret?: string;
+  maxAge?: number;
+  signed?: boolean;
+  httpOnly?: boolean;
+  path?: string;
+  domain?: string;
+  secure?: boolean;
+  sameSite?: boolean | 'lax' | 'strict' | 'none';
 }
