@@ -8,6 +8,7 @@ import {
   type TrackProvider,
   type TrackProviderDto,
 } from '../interfaces/providers';
+import { ErrorHandler } from '../presentation/errors';
 
 export class TrackService {
   private readonly db = db;
@@ -17,48 +18,57 @@ export class TrackService {
     private readonly trackProvider: TrackProvider,
     private readonly artistProvider: ArtistProvider,
     private readonly playlistProvider: PlaylistProvider,
-    private readonly mapperProvider: MapperProvider<Track, TrackProviderDto>
+    private readonly trackMapperProvider: MapperProvider<Track, TrackProviderDto>
   ) {}
 
   getTrack = async (id: string): Promise<Track> => {
     const token = await this.clientAuthProvider.getAccessToken();
     const trackProviderDto = await this.trackProvider.getTrack(token, id);
-    return this.mapperProvider.toModel(trackProviderDto);
+    return this.trackMapperProvider.toModel(trackProviderDto);
   };
 
   getTop = async (top = 'brazil', limit = 5): Promise<Track[]> => {
-    const token = await this.clientAuthProvider.getAccessToken();
-    const playlistProviderDto = await this.playlistProvider.getPlaylist(token, this.db.playlists[0].id);
-    if (playlistProviderDto.tracks == null) return [];
-    return this.mapperProvider.toModelList(playlistProviderDto.tracks.slice(0, limit));
+    try {
+      const token = await this.clientAuthProvider.getAccessToken();
+      const playlistProviderDto = await this.playlistProvider.getPlaylist(token, this.db.playlists[0].id);
+      const tracks = playlistProviderDto.tracks.items.map(item => item.track);
+      return this.trackMapperProvider.toModelList(tracks).slice(0, limit);
+    } catch (error) {
+      ErrorHandler.catch(error);
+      return [];
+    }
   };
 
-  getTrackOfTheDay = async (): Promise<MusicOfDay> => {
-    const musicOfDay = this.db.tracks[0];
-    const track = await this.getTrack(musicOfDay.id);
-    const token = await this.clientAuthProvider.getAccessToken();
-    const note = musicOfDay.note;
-    if (track.artists == null) {
+  getTrackOfTheDay = async (): Promise<MusicOfDay | undefined> => {
+    try {
+      const musicOfDay = this.db.tracks[0];
+      const note = musicOfDay.note;
+      const track = await this.getTrack(musicOfDay.id);
+      if (track.artists == null) {
+        return {
+          ...track,
+          note,
+        };
+      }
+      const token = await this.clientAuthProvider.getAccessToken();
+      const artistId = track.artists[0].id;
+      const artist = await this.artistProvider.getArtist(token, artistId);
       return {
         ...track,
+        artists: [
+          {
+            id: artist.id,
+            name: artist.name,
+            image: artist.images[0].url,
+            genres: artist.genres,
+            popularity: artist.popularity,
+            external_url: artist.external_urls.spotify,
+          },
+        ],
         note,
       };
+    } catch (error) {
+      ErrorHandler.catch(error);
     }
-    const artistId = track.artists[0].id;
-    const artist = await this.artistProvider.getArtist(token, artistId);
-    return {
-      ...track,
-      artists: [
-        {
-          id: artist.id,
-          name: artist.name,
-          image: artist.images[0].url,
-          genres: artist.genres,
-          popularity: artist.popularity,
-          external_url: artist.external_urls.spotify,
-        },
-      ],
-      note,
-    };
   };
 }

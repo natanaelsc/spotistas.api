@@ -9,12 +9,18 @@ export interface PlaylistProviderDto {
   id: string;
   name: string;
   description: string;
-  images: Array<{ url: string }>;
   followers: { total: number };
+  images: Array<{ url: string }>;
   external_urls: { spotify: string };
-  tracks: TrackProviderDto[];
+  tracks: TracksProviderDto;
+}
+
+export interface TracksProviderDto {
+  items: ItemProviderDto[];
 }
 
 export interface ItemProviderDto {
+  added_at: string;
+  is_local: boolean;
   track: TrackProviderDto;
 }
