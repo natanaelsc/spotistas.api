@@ -1,3 +1,3 @@
 export interface HttpClientResponse extends Response {
-  message?: string | undefined;
+  message?: string;
 }

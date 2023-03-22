@@ -1,7 +1,7 @@
 export class CustomError extends Error {
   public readonly status: number;
   public readonly message: string;
-  public readonly stack?: string | undefined;
+  public readonly stack?: string;
 
   constructor(status: number, message: string) {
     super(message);
