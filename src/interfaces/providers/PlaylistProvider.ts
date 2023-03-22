@@ -1,8 +1,8 @@
 import { type TrackProviderDto } from './TrackProvider';
 
 export interface PlaylistProvider {
-  getPlaylist: (token: string, id: string) => Promise<PlaylistProviderDto>;
-  getOurPlaylists: (token: string) => Promise<PlaylistProviderDto[]>;
+  getPlaylist: (id: string) => Promise<PlaylistProviderDto>;
+  getOurPlaylists: () => Promise<PlaylistProviderDto[]>;
 }
 
 export interface PlaylistProviderDto {

@@ -1,23 +1,19 @@
 import { type ArtistProvider, type ArtistProviderDto, type TrackProviderDto } from '../../interfaces/providers';
+import { Spotify } from '../apis/Spotify';
+import { HttpClient } from '../http/HttpClient';
 
 export class SpotifyArtistProvider implements ArtistProvider {
-  getArtist = async (token: string, id: string): Promise<ArtistProviderDto> => {
-    const response: Response = await fetch(`https://api.spotify.com/v1/artists/${id}`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();
-    return data as ArtistProviderDto;
+  private readonly _path = 'artists';
+
+  getArtist = async (id: string): Promise<ArtistProviderDto> => {
+    const token = await Spotify.api();
+    const artistProviderDto = await HttpClient.connect(`${this._path}/${id}`, token);
+    return artistProviderDto as ArtistProviderDto;
   };
 
-  getArtistTopTracks = async (token: string, id: string): Promise<TrackProviderDto[]> => {
-    const response: Response = await fetch(`https://api.spotify.com/v1/artists/${id}/top-tracks?country=BR`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-    const data = await response.json();
-    return data.tracks as TrackProviderDto[];
+  getArtistTopTracks = async (id: string): Promise<TrackProviderDto[]> => {
+    const token = await Spotify.api();
+    const trackProviderDto = await HttpClient.connect(`${this._path}/${id}/top-tracks?country=BR`, token);
+    return trackProviderDto.tracks as TrackProviderDto[];
   };
 }

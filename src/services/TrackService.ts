@@ -3,7 +3,6 @@ import { type MapperProvider } from '../interfaces/mappers/MapperProvider';
 import { type MusicOfDay, type Track } from '../interfaces/models/Track';
 import {
   type ArtistProvider,
-  type ClientAuthProvider,
   type PlaylistProvider,
   type TrackProvider,
   type TrackProviderDto,
@@ -14,7 +13,6 @@ export class TrackService {
   private readonly db = db;
 
   constructor(
-    private readonly clientAuthProvider: ClientAuthProvider,
     private readonly trackProvider: TrackProvider,
     private readonly artistProvider: ArtistProvider,
     private readonly playlistProvider: PlaylistProvider,
@@ -22,15 +20,13 @@ export class TrackService {
   ) {}
 
   getTrack = async (id: string): Promise<Track> => {
-    const token = await this.clientAuthProvider.getAccessToken();
-    const trackProviderDto = await this.trackProvider.getTrack(token, id);
+    const trackProviderDto = await this.trackProvider.getTrack(id);
     return this.trackMapperProvider.toModel(trackProviderDto);
   };
 
   getTop = async (top = 'brazil', limit = 5): Promise<Track[]> => {
     try {
-      const token = await this.clientAuthProvider.getAccessToken();
-      const playlistProviderDto = await this.playlistProvider.getPlaylist(token, this.db.playlists[0].id);
+      const playlistProviderDto = await this.playlistProvider.getPlaylist(this.db.playlists[0].id);
       const tracks = playlistProviderDto.tracks.items.map(item => item.track);
       return this.trackMapperProvider.toModelList(tracks).slice(0, limit);
     } catch (error) {
@@ -50,9 +46,8 @@ export class TrackService {
           note,
         };
       }
-      const token = await this.clientAuthProvider.getAccessToken();
       const artistId = track.artists[0].id;
-      const artist = await this.artistProvider.getArtist(token, artistId);
+      const artist = await this.artistProvider.getArtist(artistId);
       return {
         ...track,
         artists: [

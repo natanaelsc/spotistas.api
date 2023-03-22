@@ -26,7 +26,7 @@ export class OAuthController {
       if (state !== storedState) return res.status(HttpStatus.BAD_REQUEST).send({ error: 'state mismatch' });
       Cookie.del(res, this._stateKey);
       const clientURI = Env.get('CLIENT_URI');
-      const { access_token } = await this.oauthProvider.getToken(code as string);
+      const { access_token } = await this.oauthProvider.exchangeCode(code as string);
       if (access_token == null) return res.status(HttpStatus.FORBIDDEN).send({ error: 'bad oauth request' });
       Cookie.set(res, 'token', access_token);
       res.status(HttpStatus.FOUND).redirect(clientURI);
