@@ -13,6 +13,7 @@ export class UserRouter {
     const router = Router();
     router.get('/', this._factory.getUser);
     router.get('/top/tracks', this._factory.getUserTopTracks);
+    router.get('/top/artists', this._factory.getUserTopArtists);
     return router;
   };
 
