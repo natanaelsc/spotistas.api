@@ -37,4 +37,22 @@ export class UserController {
       return res.status(status).send({ error: message });
     }
   };
+
+  getUserTopArtists = async (req: Request, res: Response): Promise<Response> => {
+    const { time, limit } = req.query;
+    const limitToNumber = limit == null ? 20 : Number(limit);
+    if (Number.isNaN(limitToNumber))
+      return res.status(HttpStatus.BAD_REQUEST).send({ error: 'limit must be a number' });
+    try {
+      const token = Cookie.get(req, 'token');
+      const artists = await this.userService.getUserTopArtists(token, String(time), limitToNumber);
+      if (artists == null) return res.status(HttpStatus.UNAUTHORIZED).send({ error: 'unauthorized' });
+      if (artists.length === 0) return res.status(HttpStatus.OK).send({ message: 'no results found' });
+      Cache.get(req.originalUrl, artists);
+      return res.status(HttpStatus.OK).json(artists);
+    } catch (error) {
+      const { status, message } = ErrorHandler.catch(error);
+      return res.status(status).send({ error: message });
+    }
+  };
 }
