@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import { generateRandomString } from '../../infra/helpers/crypto';
+import { Crypt } from '../../infra/helpers';
 import { type OAuthProvider } from '../../interfaces/providers';
 import { Env } from '../../main/config';
 import { Cookie } from '../../main/middlewares';
@@ -12,7 +12,7 @@ export class OAuthController {
   constructor(private readonly oauthProvider: OAuthProvider) {}
 
   auth = (_req: Request, res: Response): Response => {
-    const state = generateRandomString(16, 'base64url');
+    const state = Crypt.generate(16, 'base64url');
     Cookie.set(res, this._stateKey, state);
     const redirectUri = this.oauthProvider.getRedirectUri(state);
     res.status(HttpStatus.FOUND).redirect(redirectUri);
