@@ -30,7 +30,7 @@ export class HttpClient {
   };
 
   private static readonly setURL = (url: string): string => {
-    return url.startsWith('https://') ? url : (url = `${Spotify.baseURL}/${url}`);
+    return url.startsWith('https://') ? url : `${Spotify.baseURL}/${url}`;
   };
 
   private static readonly setToken = (token: Token): string => {
