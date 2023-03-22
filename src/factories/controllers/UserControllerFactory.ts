@@ -1,7 +1,5 @@
 import { SpotifyUserProvider } from '../../infra/providers';
-import { TrackMapperProvider } from '../../mappers/providers';
-import { ArtistMapperProvider } from '../../mappers/providers/ArtistMapperProvider';
-import { UserMapperProvider } from '../../mappers/providers/UserMapperProvider';
+import { ArtistMapperProvider, TrackMapperProvider, UserMapperProvider } from '../../mappers/providers';
 import { UserController } from '../../presentation/controllers';
 import { UserService } from '../../services/UserService';
 
