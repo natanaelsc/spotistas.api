@@ -1,6 +1,7 @@
 import { type Request, type Response } from 'express';
-import logger from '../../main/config/logger';
+import { Cache } from '../../main/middlewares';
 import { type TrackService } from '../../services/TrackService';
+import { ErrorHandler } from '../errors';
 import { HttpStatus } from '../http';
 
 export class TrackController {
@@ -12,17 +13,26 @@ export class TrackController {
     const topToString = top == null ? 'br' : String(top);
     if (Number.isNaN(limitToNumber))
       return res.status(HttpStatus.BAD_REQUEST).send({ error: 'limit must be a number' });
-    const tracks = await this.trackService.getTop(topToString, limitToNumber);
-    return res.status(HttpStatus.OK).json(tracks);
+    try {
+      const tracks = await this.trackService.getTop(topToString, limitToNumber);
+      if (tracks == null) return res.status(HttpStatus.UNAUTHORIZED).send({ error: 'unauthorized' });
+      Cache.get(req.originalUrl, tracks);
+      return res.status(HttpStatus.OK).json(tracks);
+    } catch (error) {
+      const { status, message } = ErrorHandler.catch(error);
+      return res.status(status).send({ error: message });
+    }
   };
 
-  getTrackOfTheDay = async (_req: Request, res: Response): Promise<Response> => {
+  getTrackOfTheDay = async (req: Request, res: Response): Promise<Response> => {
     try {
       const track = await this.trackService.getTrackOfTheDay();
+      if (track == null) return res.status(HttpStatus.UNAUTHORIZED).send({ error: 'unauthorized' });
+      Cache.get(req.originalUrl, track);
       return res.status(HttpStatus.OK).json(track);
     } catch (error) {
-      logger.error(error);
-      return res.end();
+      const { status, message } = ErrorHandler.catch(error);
+      return res.status(status).send({ error: message });
     }
   };
 }
