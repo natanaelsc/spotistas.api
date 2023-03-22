@@ -38,3 +38,9 @@ export class Spotify {
     return await Jwt.sign({ access_token }, `${expiresIn}m`);
   };
 }
+
+export enum TimeRange {
+  SHORT = 'short_term',
+  MEDIUM = 'medium_term',
+  LONG = 'long_term',
+}
