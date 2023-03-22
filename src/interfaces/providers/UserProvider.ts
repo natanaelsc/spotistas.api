@@ -1,5 +1,8 @@
+import { type TrackProviderDto } from './TrackProvider';
+
 export interface UserProvider {
   getUser: (token: string) => Promise<UserProviderDto>;
+  getTopTracks: (token: string, time_range: string, limit: number) => Promise<TrackProviderDto[]>;
 }
 
 export interface UserProviderDto {

@@ -11,7 +11,8 @@ export class UserRouter {
 
   private static readonly routes = (): Router => {
     const router = Router();
-    router.get('/', this._factory.handle);
+    router.get('/', this._factory.getUser);
+    router.get('/top/tracks', this._factory.getUserTopTracks);
     return router;
   };
 
