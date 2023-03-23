@@ -58,16 +58,17 @@ export default class Server {
     this._app.get('/healthcheck', (_req, res, _next) => {
       const healthCheck = {
         uptime: process.uptime(),
+        reponseTime: process.hrtime(),
         message: 'OK',
         timestamp: Date.now(),
       };
       try {
-        logger.debug(healthCheck);
         res.status(HttpStatus.OK).send(healthCheck);
       } catch (error) {
         healthCheck.message = error as string;
         res.status(503).send();
       }
+      logger.debug(healthCheck);
     });
   };
 }
