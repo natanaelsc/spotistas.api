@@ -37,7 +37,7 @@ export class SpotifyOAuthProvider implements OAuthProvider {
         client_secret: this._clientSecret,
       },
     });
-    logger.debug('OAuthProvider:', token.access_token);
+    logger.debug('OAuthProvider:', token);
     return token;
   };
 }
