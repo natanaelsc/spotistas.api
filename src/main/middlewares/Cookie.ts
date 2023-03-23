@@ -30,7 +30,7 @@ export class Cookie {
   };
 
   public static readonly set = (res: HttpResponse, key: string, value: string): void => {
-    res.cookie(key, value, { httpOnly: true });
+    res.cookie(key, value, this.configure(key));
   };
 
   public static readonly del = (res: HttpResponse, key: string): void => {

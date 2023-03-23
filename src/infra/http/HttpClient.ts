@@ -15,6 +15,7 @@ export class HttpClient {
     try {
       const data: HttpClientResponse = await fetch(url, {
         method,
+        mode: 'no-cors',
         headers: {
           Authorization: token,
           'Content-Type': contetType,
