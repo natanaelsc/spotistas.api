@@ -34,7 +34,6 @@ export class HttpClient {
   };
 
   private static readonly setToken = (token: Token): string => {
-    logger.debug('Token:', token?.slice(0, 150));
     return token != null ? `Bearer ${token}` : '';
   };
 
