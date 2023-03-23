@@ -5,7 +5,7 @@ import { Env } from '../config/Env';
 import logger from '../config/logger';
 
 export class Cookie {
-  private static readonly _secure = Env.isProduction();
+  private static readonly _secure = Env.get('COOKIE_SECURE') === 'true';
   private static readonly _secret = Env.get('COOKIE_SECRET');
 
   private static readonly configure = (name?: string, secret = this._secret): CookieOptions => {
