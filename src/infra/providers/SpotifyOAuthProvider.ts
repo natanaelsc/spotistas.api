@@ -1,5 +1,6 @@
 import { type OAuthProvider, type OAuthProviderDto } from '../../interfaces/providers';
 import { Env } from '../../main/config';
+import logger from '../../main/config/logger';
 import { HttpContentType, HttpMethod } from '../../presentation/http';
 import { HttpClient } from '../http/HttpClient';
 
@@ -25,7 +26,7 @@ export class SpotifyOAuthProvider implements OAuthProvider {
   };
 
   exchangeCode = async (code: string): Promise<OAuthProviderDto> => {
-    return await HttpClient.connect(`${this._path}/api/token`, null, {
+    const token = await HttpClient.connect(`${this._path}/api/token`, null, {
       method: HttpMethod.POST,
       contentType: HttpContentType.FORM,
       body: {
@@ -36,5 +37,7 @@ export class SpotifyOAuthProvider implements OAuthProvider {
         client_secret: this._clientSecret,
       },
     });
+    logger.debug('OAuthProvider:', token.access_token);
+    return token;
   };
 }
