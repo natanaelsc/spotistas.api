@@ -1,6 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import express, { type Express } from 'express';
 import http from 'http';
+import { HttpStatus } from '../presentation/http';
 import { Env } from './config/Env';
 import logger from './config/logger';
 import { Cookie, Cors, Morgan } from './middlewares';
@@ -33,6 +34,7 @@ export default class Server {
     this._app.use(express.json());
     this._app.use(express.urlencoded({ extended: true }));
     this._app.disable('x-powered-by');
+    this.healthCheck();
   };
 
   public use = (...args: any[]): void => {
@@ -50,5 +52,22 @@ export default class Server {
         logger.error(err);
         process.exit(1);
       });
+  };
+
+  private readonly healthCheck = (): void => {
+    this._app.get('/healthcheck', (_req, res, _next) => {
+      const healthCheck = {
+        uptime: process.uptime(),
+        message: 'OK',
+        timestamp: Date.now(),
+      };
+      try {
+        logger.debug(healthCheck);
+        res.status(HttpStatus.OK).send(healthCheck);
+      } catch (error) {
+        healthCheck.message = error as string;
+        res.status(503).send();
+      }
+    });
   };
 }
