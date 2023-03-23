@@ -29,9 +29,8 @@ export class UserService {
   };
 
   getUserTopTracks = async (token: string, time: string, limit: number): Promise<Track[] | undefined> => {
-    time = this.setTimeRange(time);
     try {
-      const trackListProviderDto = await this.userProvider.getTopTracks(token, time, limit);
+      const trackListProviderDto = await this.userProvider.getTopTracks(token, this.setTimeRange(time), limit);
       return this.trackMapperProvider.toModelList(trackListProviderDto);
     } catch (error) {
       ErrorHandler.catch(error);
@@ -39,10 +38,19 @@ export class UserService {
   };
 
   getUserTopArtists = async (token: string, time: string, limit: number): Promise<Artist[] | undefined> => {
-    time = this.setTimeRange(time);
     try {
-      const artistListProviderDto = await this.userProvider.getTopArtists(token, time, limit);
+      const artistListProviderDto = await this.userProvider.getTopArtists(token, this.setTimeRange(time), limit);
       return this.artistMapperProvider.toModelList(artistListProviderDto);
+    } catch (error) {
+      ErrorHandler.catch(error);
+    }
+  };
+
+  getUserTopGenres = async (token: string, time: string, limit: number): Promise<string[] | undefined> => {
+    try {
+      const artists = await this.userProvider.getTopArtists(token, this.setTimeRange(time));
+      const genres = artists.map(artist => artist.genres).flat();
+      return Array.from(new Set(genres)).slice(0, limit);
     } catch (error) {
       ErrorHandler.catch(error);
     }

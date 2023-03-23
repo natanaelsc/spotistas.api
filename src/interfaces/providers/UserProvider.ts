@@ -3,8 +3,8 @@ import { type TrackProviderDto } from './TrackProvider';
 
 export interface UserProvider {
   getUser: (token: string) => Promise<UserProviderDto>;
-  getTopTracks: (token: string, time_range: string, limit: number) => Promise<TrackProviderDto[]>;
-  getTopArtists: (token: string, time_range: string, limit: number) => Promise<ArtistProviderDto[]>;
+  getTopTracks: (token: string, time_range: string, limit?: number) => Promise<TrackProviderDto[]>;
+  getTopArtists: (token: string, time_range: string, limit?: number) => Promise<ArtistProviderDto[]>;
 }
 
 export interface UserProviderDto {

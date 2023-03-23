@@ -55,4 +55,22 @@ export class UserController {
       return res.status(status).send({ error: message });
     }
   };
+
+  getUserTopGenres = async (req: Request, res: Response): Promise<Response> => {
+    const { time, limit } = req.query;
+    const limitToNumber = limit == null ? 20 : Number(limit);
+    if (Number.isNaN(limitToNumber))
+      return res.status(HttpStatus.BAD_REQUEST).send({ error: 'limit must be a number' });
+    try {
+      const token = Cookie.get(req, 'token');
+      const genres = await this.userService.getUserTopGenres(token, String(time), limitToNumber);
+      if (genres == null) return res.status(HttpStatus.UNAUTHORIZED).send({ error: 'unauthorized' });
+      if (genres.length === 0) return res.status(HttpStatus.OK).send({ message: 'no results found' });
+      Cache.get(req.originalUrl, genres);
+      return res.status(HttpStatus.OK).json(genres);
+    } catch (error) {
+      const { status, message } = ErrorHandler.catch(error);
+      return res.status(status).send({ error: message });
+    }
+  };
 }

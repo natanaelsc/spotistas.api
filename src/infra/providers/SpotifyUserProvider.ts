@@ -10,7 +10,7 @@ import { HttpClient } from '../http/HttpClient';
 export class SpotifyUserProvider implements UserProvider {
   private readonly _path = 'me';
   private readonly time_range = TimeRange.MEDIUM as string;
-  private readonly limit = 20;
+  private readonly limit = 50;
 
   getUser = async (token: string): Promise<UserProviderDto> => {
     const user = await HttpClient.connect(this._path, token);

@@ -14,6 +14,7 @@ export class UserRouter {
     router.get('/', this._factory.getUser);
     router.get('/top/tracks', this._factory.getUserTopTracks);
     router.get('/top/artists', this._factory.getUserTopArtists);
+    router.get('/top/genres', this._factory.getUserTopGenres);
     return router;
   };
 
