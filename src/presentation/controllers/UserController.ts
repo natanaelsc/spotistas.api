@@ -12,7 +12,7 @@ export class UserController {
       const token = Cookie.get(req, 'token');
       const user = await this.userService.getUser(token);
       if (user == null) return res.status(HttpStatus.UNAUTHORIZED).send({ error: 'unauthorized' });
-      Cache.get(req.originalUrl, user);
+      Cache.get(user.id, user);
       return res.status(HttpStatus.OK).json(user);
     } catch (error) {
       const { status, message } = ErrorHandler.catch(error);
@@ -30,7 +30,6 @@ export class UserController {
       const tracks = await this.userService.getUserTopTracks(token, String(time), limitToNumber);
       if (tracks == null) return res.status(HttpStatus.UNAUTHORIZED).send({ error: 'unauthorized' });
       if (tracks.length === 0) return res.status(HttpStatus.OK).send({ message: 'no results found' });
-      Cache.get(req.originalUrl, tracks);
       return res.status(HttpStatus.OK).json(tracks);
     } catch (error) {
       const { status, message } = ErrorHandler.catch(error);
@@ -48,7 +47,6 @@ export class UserController {
       const artists = await this.userService.getUserTopArtists(token, String(time), limitToNumber);
       if (artists == null) return res.status(HttpStatus.UNAUTHORIZED).send({ error: 'unauthorized' });
       if (artists.length === 0) return res.status(HttpStatus.OK).send({ message: 'no results found' });
-      Cache.get(req.originalUrl, artists);
       return res.status(HttpStatus.OK).json(artists);
     } catch (error) {
       const { status, message } = ErrorHandler.catch(error);
@@ -66,7 +64,6 @@ export class UserController {
       const genres = await this.userService.getUserTopGenres(token, String(time), limitToNumber);
       if (genres == null) return res.status(HttpStatus.UNAUTHORIZED).send({ error: 'unauthorized' });
       if (genres.length === 0) return res.status(HttpStatus.OK).send({ message: 'no results found' });
-      Cache.get(req.originalUrl, genres);
       return res.status(HttpStatus.OK).json(genres);
     } catch (error) {
       const { status, message } = ErrorHandler.catch(error);
