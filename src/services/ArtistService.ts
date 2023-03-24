@@ -13,11 +13,11 @@ export class ArtistService {
     private readonly trackMapperProvider: MapperProvider<Track, TrackProviderDto>
   ) {}
 
-  getArtistMonth = async (): Promise<ArtistMonth | undefined> => {
+  getArtistMonth = async (limit: number): Promise<ArtistMonth | undefined> => {
     try {
       const artist = this.db[0];
       const topTracks = await this.artistProvider.getArtistTopTracks(artist.id);
-      const tracks = this.trackMapperProvider.toModelList(topTracks);
+      const tracks = this.trackMapperProvider.toModelList(topTracks.slice(0, limit));
       return {
         ...artist,
         tracks,

@@ -30,7 +30,7 @@ export default class Server {
     this._app.use(Morgan.middleware);
     this._app.use(Cors.middleware);
     this._app.use(Cookie.middleware.parser);
-    // this._app.use(Cookie.middleware.session);
+    this._app.use(Cookie.middleware.session);
     this._app.use(express.json());
     this._app.use(express.urlencoded({ extended: true }));
     this._app.disable('x-powered-by');
