@@ -5,45 +5,43 @@ import { HttpStatus } from '../presentation/http';
 import { Env } from './config/Env';
 import logger from './config/logger';
 import { Cookie, Cors, Morgan } from './middlewares';
+import routes from './routes';
 
 export default class Server {
   private readonly _app: Express;
-  private readonly _server: http.Server;
-  private readonly _port = Env.getNumber('PORT', 5000);
+  private readonly server: http.Server;
+  private readonly port = Env.getNumber('PORT', 5000);
 
   public get app(): Express {
     return this._app;
   }
 
-  public get server(): http.Server {
-    return this._server;
-  }
-
   constructor() {
     this._app = express();
-    this._app.set('port', this._port);
-    this._server = http.createServer(this._app);
+    this._app.set('port', this.port);
+    this.server = http.createServer(this._app);
+    this.healthCheck();
     this.configure();
   }
 
   private readonly configure = (): void => {
+    this._app.disable('x-powered-by');
     this._app.use(Morgan.middleware);
     this._app.use(Cors.middleware);
     this._app.use(Cookie.middleware.parser);
     this._app.use(Cookie.middleware.session);
     this._app.use(express.json());
     this._app.use(express.urlencoded({ extended: true }));
-    this._app.disable('x-powered-by');
-    this.healthCheck();
+    this._app.use(routes);
   };
 
   public use = (...args: any[]): void => {
     this._app.use(...args);
   };
 
-  public start = (): void => {
+  public readonly start = (): void => {
     const port = this._app.get('port');
-    this._server
+    this.server
       .listen(port, () => {
         logger.info('🚀 Server is running on port', port);
         logger.info('🚀 Press CTRL-C to stop\n');
@@ -58,7 +56,7 @@ export default class Server {
     this._app.get('/healthcheck', (_req, res, _next) => {
       const healthCheck = {
         uptime: process.uptime(),
-        reponseTime: process.hrtime(),
+        reponse_time: process.hrtime(),
         message: 'OK',
         timestamp: Date.now(),
       };
