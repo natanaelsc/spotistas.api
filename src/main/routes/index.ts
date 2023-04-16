@@ -15,8 +15,4 @@ routes.use(PlaylistRouter.create());
 routes.use(TrackRouter.create());
 routes.use(UserRouter.create());
 
-routes.use((_req, res) => {
-  res.status(404).json({ message: 'not found' });
-});
-
 export default routes;

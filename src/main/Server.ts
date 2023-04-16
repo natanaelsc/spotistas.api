@@ -5,20 +5,27 @@ import { HttpStatus } from '../presentation/http';
 import { Env } from './config/Env';
 import logger from './config/logger';
 import { Cookie, Cors, Morgan } from './middlewares';
-import routes from './routes';
 
 export default class Server {
   private readonly _app: Express;
   private readonly server: http.Server;
-  private readonly port = Env.getNumber('PORT', 5000);
+  private readonly _port = Env.getNumber('PORT', 5000);
 
   public get app(): Express {
     return this._app;
   }
 
+  public get address(): string {
+    return this.server.address() as string;
+  }
+
+  public get port(): number {
+    return this._port;
+  }
+
   constructor() {
     this._app = express();
-    this._app.set('port', this.port);
+    this._app.set('port', this._port);
     this.server = http.createServer(this._app);
     this.healthCheck();
     this.configure();
@@ -32,7 +39,6 @@ export default class Server {
     this._app.use(Cookie.middleware.session);
     this._app.use(express.json());
     this._app.use(express.urlencoded({ extended: true }));
-    this._app.use(routes);
   };
 
   public use = (...args: any[]): void => {
@@ -40,10 +46,9 @@ export default class Server {
   };
 
   public readonly start = (): void => {
-    const port = this._app.get('port');
     this.server
-      .listen(port, () => {
-        logger.info('🚀 Server is running on port', port);
+      .listen(this._port, () => {
+        logger.info('🚀 Server is running on port', this._port);
         logger.info('🚀 Press CTRL-C to stop\n');
       })
       .on('error', err => {
