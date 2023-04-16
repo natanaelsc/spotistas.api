@@ -5,6 +5,7 @@ import { HttpStatus } from '../presentation/http';
 import { Env } from './config/Env';
 import logger from './config/logger';
 import { Cookie, Cors, Morgan } from './middlewares';
+import routes from './routes';
 
 export default class Server {
   private readonly _app: Express;
@@ -39,6 +40,7 @@ export default class Server {
     this._app.use(Cookie.middleware.session);
     this._app.use(express.json());
     this._app.use(express.urlencoded({ extended: true }));
+    this._app.use(routes);
   };
 
   public use = (...args: any[]): void => {
