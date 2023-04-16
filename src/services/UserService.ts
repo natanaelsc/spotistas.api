@@ -1,4 +1,4 @@
-import { TimeRange } from '../infra/apis/Spotify';
+import { TimeRange } from '../infra/api/Spotify';
 import { type MapperProvider } from '../interfaces/mappers/MapperProvider';
 import { type Artist } from '../interfaces/models/Artist';
 import { type Track } from '../interfaces/models/Track';
