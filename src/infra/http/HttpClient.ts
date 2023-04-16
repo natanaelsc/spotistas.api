@@ -1,28 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import logger from '../../main/config/logger';
 import { ErrorHandler, type CustomError } from '../../presentation/errors';
 import { HttpContentType, HttpMethod, type HttpClientResponse } from '../../presentation/http';
-import { Spotify } from '../apis/Spotify';
-import { type HttpClientOptions } from './HttpClientOptions';
 
 export class HttpClient {
-  static connect = async (url: string, token: Token, clientOptions?: HttpClientOptions): Promise<CustomResponse> => {
-    url = this.setURL(url);
+  static get = async (url: string, token: string): Promise<CustomResponse> => {
     token = this.setToken(token);
-    const method = clientOptions?.method ?? HttpMethod.GET;
-    const contetType = clientOptions?.contentType ?? HttpContentType.JSON;
-    const body = this.setBody(clientOptions?.body, contetType);
     try {
       const data: HttpClientResponse = await fetch(url, {
-        method,
-        mode: 'no-cors',
+        method: HttpMethod.GET,
         headers: {
           Authorization: token,
-          'Content-Type': contetType,
+          'Content-Type': HttpContentType.JSON,
         },
-        body,
       });
-      logger.http(`${method}`, `${url.replace('https://', '')}`, `${contetType}`, body, data.status);
       ErrorHandler.response(data);
       return await data.json();
     } catch (error) {
@@ -30,8 +20,22 @@ export class HttpClient {
     }
   };
 
-  private static readonly setURL = (url: string): string => {
-    return url.startsWith('https://') ? url : `${Spotify.baseURL}/${url}`;
+  static post = async (url: string, body?: any, contentType?: string): Promise<CustomResponse> => {
+    contentType = contentType ?? HttpContentType.JSON;
+    body = this.setBody(body, contentType);
+    try {
+      const data: HttpClientResponse = await fetch(url, {
+        method: HttpMethod.POST,
+        headers: {
+          'Content-Type': contentType,
+        },
+        body,
+      });
+      ErrorHandler.response(data);
+      return await data.json();
+    } catch (error) {
+      return ErrorHandler.catch(error);
+    }
   };
 
   private static readonly setToken = (token: Token): string => {

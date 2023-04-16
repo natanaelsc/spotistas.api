@@ -4,16 +4,15 @@ import {
   type UserProvider,
   type UserProviderDto,
 } from '../../interfaces/providers';
-import { TimeRange } from '../apis/Spotify';
-import { HttpClient } from '../http/HttpClient';
+import { Spotify, TimeRange } from '../api/Spotify';
 
 export class SpotifyUserProvider implements UserProvider {
-  private readonly _path = 'me';
+  private readonly path = 'me';
   private readonly time_range = TimeRange.MEDIUM as string;
   private readonly limit = 50;
 
   getUser = async (token: string): Promise<UserProviderDto> => {
-    const user = await HttpClient.connect(this._path, token);
+    const user = await Spotify.api(this.path, token);
     return user as UserProviderDto;
   };
 
@@ -22,10 +21,7 @@ export class SpotifyUserProvider implements UserProvider {
     time_range = this.time_range,
     limit = this.limit
   ): Promise<TrackProviderDto[]> => {
-    const topTracks = await HttpClient.connect(
-      `${this._path}/top/tracks?time_range=${time_range}&limit=${limit}`,
-      token
-    );
+    const topTracks = await Spotify.api(`${this.path}/top/tracks?time_range=${time_range}&limit=${limit}`, token);
     return topTracks.items as TrackProviderDto[];
   };
 
@@ -34,10 +30,7 @@ export class SpotifyUserProvider implements UserProvider {
     time_range = this.time_range,
     limit = this.limit
   ): Promise<ArtistProviderDto[]> => {
-    const topArtists = await HttpClient.connect(
-      `${this._path}/top/artists?time_range=${time_range}&limit=${limit}`,
-      token
-    );
+    const topArtists = await Spotify.api(`${this.path}/top/artists?time_range=${time_range}&limit=${limit}`, token);
     return topArtists.items as ArtistProviderDto[];
   };
 }
