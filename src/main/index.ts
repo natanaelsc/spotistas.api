@@ -1,16 +1,33 @@
 import 'dotenv/config';
-import { Router } from 'express';
+import { HttpStatus } from '../presentation/http';
 import Server from './Server';
-import { ArtistRouter, OAuthRouter, PlaylistRouter, TrackRouter, UserRouter } from './routes';
+import routes from './routes';
 
 const server = new Server();
-const routes = Router();
 
-routes.use(ArtistRouter.create());
-routes.use(OAuthRouter.create());
-routes.use(PlaylistRouter.create());
-routes.use(TrackRouter.create());
-routes.use(UserRouter.create());
+const address = typeof server.address === 'string' ? server.address : `http://localhost:${server.port}`;
+
+const routeList = [
+  `${address}/oauth`,
+  `${address}/me`,
+  `${address}/me/top/artists`,
+  `${address}/me/top/tracks`,
+  `${address}/me/top/genres`,
+  `${address}/artists/month`,
+  `${address}/playlists`,
+  `${address}/tracks`,
+  `${address}/tracks/day`,
+  `${address}/tracks/topBrazil`,
+];
+
+routes.use('/', (_req, res) => {
+  res.status(HttpStatus.OK).json(routeList);
+});
+
+routes.use((_req, res) => {
+  res.status(HttpStatus.NOT_FOUND).json({ message: 'not found' });
+});
 
 server.use(routes);
+
 server.start();
