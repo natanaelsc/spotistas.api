@@ -1,13 +1,13 @@
 import { Router } from 'express';
-import { UserControllerFactory } from '../../factories/controllers';
+import { ControllerFactory } from '../../infra/factory/ControllerFactory';
 import { Auth, Cache } from '../middlewares';
 
 export class UserRouter {
   private static readonly _prefix = '/me';
-  private static readonly _factory = UserControllerFactory.create();
   private static readonly _router = Router();
   private static readonly _cache = Cache.middleware;
   private static readonly _auth = Auth.middleware.user;
+  private static _factory;
 
   private static readonly routes = (): Router => {
     const router = Router();
@@ -21,4 +21,8 @@ export class UserRouter {
   static create = (): Router => {
     return this._router.use(this._prefix, this._auth, this.routes());
   };
+
+  static {
+    this._factory = new ControllerFactory().createUserController();
+  }
 }
