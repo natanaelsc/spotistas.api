@@ -1,8 +1,9 @@
 import { type MapperDto } from '../application/mapper/MapperDto';
+import { type ArtistProvider } from '../application/provider/ArtistProvider';
+import { type TrackProviderDto } from '../application/provider/TrackProvider';
 import { type ArtistMonthDto } from '../domain/dto/ArtistDto';
 import { type TrackDto } from '../domain/dto/TrackDto';
 import db from '../infra/database/db.json';
-import { type ArtistProvider, type TrackProviderDto } from '../interfaces/providers';
 import { ErrorHandler } from '../presentation/errors';
 
 export class ArtistService {

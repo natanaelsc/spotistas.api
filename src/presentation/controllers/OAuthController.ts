@@ -1,6 +1,6 @@
 import { type Request, type Response } from 'express';
+import { type OAuthProvider } from '../../application/provider/OAuthProvider';
 import { Crypt } from '../../infra/helpers';
-import { type OAuthProvider } from '../../interfaces/providers';
 import { Env } from '../../main/config';
 import { Cookie } from '../../main/middlewares';
 import { ErrorHandler } from '../errors';

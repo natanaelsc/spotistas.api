@@ -1,6 +1,6 @@
 import { type MapperDto } from '../../../application/mapper/MapperDto';
+import { type UserProviderDto } from '../../../application/provider/UserProvider';
 import { type UserDto } from '../../../domain/dto/UserDto';
-import { type UserProviderDto } from '../../../interfaces/providers';
 
 export class UserMapperDto implements MapperDto<UserDto, UserProviderDto> {
   toDto = (data: UserProviderDto): UserDto => {

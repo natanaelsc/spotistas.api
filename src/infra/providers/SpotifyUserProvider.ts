@@ -1,9 +1,6 @@
-import {
-  type ArtistProviderDto,
-  type TrackProviderDto,
-  type UserProvider,
-  type UserProviderDto,
-} from '../../interfaces/providers';
+import { type ArtistProviderDto } from '../../application/provider/ArtistProvider';
+import { type TrackProviderDto } from '../../application/provider/TrackProvider';
+import { type UserProvider, type UserProviderDto } from '../../application/provider/UserProvider';
 import { Spotify, TimeRange } from '../api/Spotify';
 
 export class SpotifyUserProvider implements UserProvider {

@@ -1,4 +1,4 @@
-import { type TrackProvider, type TrackProviderDto } from '../../interfaces/providers';
+import { type TrackProvider, type TrackProviderDto } from '../../application/provider/TrackProvider';
 import { Spotify } from '../api/Spotify';
 
 export class SpotifyTrackProvider implements TrackProvider {

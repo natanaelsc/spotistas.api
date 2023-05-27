@@ -1,6 +1,6 @@
 import { type MapperDto } from '../../../application/mapper/MapperDto';
+import { type TrackProviderDto } from '../../../application/provider/TrackProvider';
 import { type TrackDto } from '../../../domain/dto/TrackDto';
-import { type TrackProviderDto } from '../../../interfaces/providers';
 
 export class TrackMapperDto implements MapperDto<TrackDto, TrackProviderDto> {
   toDto = (data: TrackProviderDto): TrackDto => {

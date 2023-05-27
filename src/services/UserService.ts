@@ -1,14 +1,11 @@
 import { type MapperDto } from '../application/mapper/MapperDto';
+import { type ArtistProviderDto } from '../application/provider/ArtistProvider';
+import { type TrackProviderDto } from '../application/provider/TrackProvider';
+import { type UserProvider, type UserProviderDto } from '../application/provider/UserProvider';
 import { type ArtistDto } from '../domain/dto/ArtistDto';
 import { type TrackDto } from '../domain/dto/TrackDto';
 import { type UserDto } from '../domain/dto/UserDto';
 import { TimeRange } from '../infra/api/Spotify';
-import {
-  type ArtistProviderDto,
-  type TrackProviderDto,
-  type UserProvider,
-  type UserProviderDto,
-} from '../interfaces/providers';
 import { ErrorHandler } from '../presentation/errors';
 
 export class UserService {
@@ -22,7 +19,8 @@ export class UserService {
   getUser = async (token: string): Promise<UserDto | undefined> => {
     try {
       const userProviderDto = await this.userProvider.getUser(token);
-      return this.userMapperDto.toDto(userProviderDto);
+      const userDto = this.userMapperDto.toDto(userProviderDto);
+      return userDto;
     } catch (error) {
       ErrorHandler.catch(error);
     }

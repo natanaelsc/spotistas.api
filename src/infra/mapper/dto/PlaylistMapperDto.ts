@@ -1,6 +1,6 @@
 import { type MapperDto } from '../../../application/mapper/MapperDto';
+import { type PlaylistProviderDto } from '../../../application/provider/PlaylistProvider';
 import { type PlaylistDto } from '../../../domain/dto/PlaylistDto';
-import { type PlaylistProviderDto } from '../../../interfaces/providers';
 import { TrackMapperDto } from './TrackMapperDto';
 
 export class PlaylistMapperDto implements MapperDto<PlaylistDto, PlaylistProviderDto> {

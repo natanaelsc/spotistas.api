@@ -1,5 +1,5 @@
+import { type PlaylistProvider } from '../application/provider/PlaylistProvider';
 import { type PlaylistDto } from '../domain/dto/PlaylistDto';
-import { type PlaylistProvider } from '../interfaces/providers';
 import { ErrorHandler } from '../presentation/errors';
 
 export class PlaylistService {
