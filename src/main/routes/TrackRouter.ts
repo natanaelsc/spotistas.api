@@ -1,12 +1,12 @@
 import { Router } from 'express';
-import { TrackControllerFactory } from '../../factories/controllers';
+import { ControllerFactory } from '../../infra/factory/ControllerFactory';
 import { Cache } from '../middlewares/Cache';
 
 export class TrackRouter {
   private static readonly _prefix = '/tracks';
-  private static readonly _factory = TrackControllerFactory.create();
   private static readonly _router = Router();
   private static readonly _cache = Cache.middleware;
+  private static _factory;
 
   private static readonly routes = (): Router => {
     const router = Router();
@@ -19,4 +19,8 @@ export class TrackRouter {
   static create = (): Router => {
     return this._router.use(this._prefix, this._cache, this.routes());
   };
+
+  static {
+    this._factory = new ControllerFactory().createTrackController();
+  }
 }

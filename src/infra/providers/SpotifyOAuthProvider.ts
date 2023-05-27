@@ -1,4 +1,4 @@
-import { type OAuthProvider, type OAuthProviderDto } from '../../interfaces/providers';
+import { type OAuthProvider, type OAuthProviderDto } from '../../application/provider/OAuthProvider';
 import { Env } from '../../main/config';
 import logger from '../../main/config/logger';
 import { HttpContentType } from '../../presentation/http';

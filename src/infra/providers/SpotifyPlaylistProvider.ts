@@ -1,4 +1,4 @@
-import { type PlaylistProvider, type PlaylistProviderDto } from '../../interfaces/providers';
+import { type PlaylistProvider, type PlaylistProviderDto } from '../../application/provider/PlaylistProvider';
 import { Env } from '../../main/config';
 import { Spotify } from '../api/Spotify';
 
