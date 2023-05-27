@@ -1,8 +1,8 @@
+import { type MapperDto } from '../application/mapper/MapperDto';
+import { type ArtistDto } from '../domain/dto/ArtistDto';
+import { type TrackDto } from '../domain/dto/TrackDto';
+import { type UserDto } from '../domain/dto/UserDto';
 import { TimeRange } from '../infra/api/Spotify';
-import { type MapperProvider } from '../interfaces/mappers/MapperProvider';
-import { type Artist } from '../interfaces/models/Artist';
-import { type Track } from '../interfaces/models/Track';
-import { type User } from '../interfaces/models/User';
 import {
   type ArtistProviderDto,
   type TrackProviderDto,
@@ -14,33 +14,33 @@ import { ErrorHandler } from '../presentation/errors';
 export class UserService {
   constructor(
     private readonly userProvider: UserProvider,
-    private readonly userMapperProvider: MapperProvider<User, UserProviderDto>,
-    private readonly trackMapperProvider: MapperProvider<Track, TrackProviderDto>,
-    private readonly artistMapperProvider: MapperProvider<Artist, ArtistProviderDto>
+    private readonly userMapperDto: MapperDto<UserDto, UserProviderDto>,
+    private readonly trackMapperDto: MapperDto<TrackDto, TrackProviderDto>,
+    private readonly artistMapperDto: MapperDto<ArtistDto, ArtistProviderDto>
   ) {}
 
-  getUser = async (token: string): Promise<User | undefined> => {
+  getUser = async (token: string): Promise<UserDto | undefined> => {
     try {
       const userProviderDto = await this.userProvider.getUser(token);
-      return this.userMapperProvider.toModel(userProviderDto);
+      return this.userMapperDto.toDto(userProviderDto);
     } catch (error) {
       ErrorHandler.catch(error);
     }
   };
 
-  getUserTopTracks = async (token: string, time: string, limit: number): Promise<Track[] | undefined> => {
+  getUserTopTracks = async (token: string, time: string, limit: number): Promise<TrackDto[] | undefined> => {
     try {
       const trackListProviderDto = await this.userProvider.getTopTracks(token, this.setTimeRange(time), limit);
-      return this.trackMapperProvider.toModelList(trackListProviderDto);
+      return this.trackMapperDto.toDtoList(trackListProviderDto);
     } catch (error) {
       ErrorHandler.catch(error);
     }
   };
 
-  getUserTopArtists = async (token: string, time: string, limit: number): Promise<Artist[] | undefined> => {
+  getUserTopArtists = async (token: string, time: string, limit: number): Promise<ArtistDto[] | undefined> => {
     try {
       const artistListProviderDto = await this.userProvider.getTopArtists(token, this.setTimeRange(time), limit);
-      return this.artistMapperProvider.toModelList(artistListProviderDto);
+      return this.artistMapperDto.toDtoList(artistListProviderDto);
     } catch (error) {
       ErrorHandler.catch(error);
     }

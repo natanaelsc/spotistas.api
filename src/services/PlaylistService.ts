@@ -1,11 +1,11 @@
-import { type Playlist } from '../interfaces/models/Playlist';
+import { type PlaylistDto } from '../domain/dto/PlaylistDto';
 import { type PlaylistProvider } from '../interfaces/providers';
 import { ErrorHandler } from '../presentation/errors';
 
 export class PlaylistService {
   constructor(private readonly playlistProvider: PlaylistProvider) {}
 
-  getOurPlaylists = async (limit = 5): Promise<Playlist[]> => {
+  getOurPlaylists = async (limit = 5): Promise<PlaylistDto[]> => {
     try {
       const playlists = await this.playlistProvider.getOurPlaylists();
       return playlists

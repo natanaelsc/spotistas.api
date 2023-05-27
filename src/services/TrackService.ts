@@ -1,6 +1,6 @@
+import { type MapperDto } from '../application/mapper/MapperDto';
+import { type MusicOfDay, type TrackDto } from '../domain/dto/TrackDto';
 import db from '../infra/database/db.json';
-import { type MapperProvider } from '../interfaces/mappers/MapperProvider';
-import { type MusicOfDay, type Track } from '../interfaces/models/Track';
 import {
   type ArtistProvider,
   type PlaylistProvider,
@@ -16,19 +16,19 @@ export class TrackService {
     private readonly trackProvider: TrackProvider,
     private readonly artistProvider: ArtistProvider,
     private readonly playlistProvider: PlaylistProvider,
-    private readonly trackMapperProvider: MapperProvider<Track, TrackProviderDto>
+    private readonly trackMapperDto: MapperDto<TrackDto, TrackProviderDto>
   ) {}
 
-  getTrack = async (id: string): Promise<Track> => {
+  getTrack = async (id: string): Promise<TrackDto> => {
     const trackProviderDto = await this.trackProvider.getTrack(id);
-    return this.trackMapperProvider.toModel(trackProviderDto);
+    return this.trackMapperDto.toDto(trackProviderDto);
   };
 
-  getTop = async (top = 'brazil', limit = 5): Promise<Track[]> => {
+  getTop = async (top = 'brazil', limit = 5): Promise<TrackDto[]> => {
     try {
       const playlistProviderDto = await this.playlistProvider.getPlaylist(this.db.playlists[0].id);
       const tracks = playlistProviderDto.tracks.items.map(item => item.track);
-      return this.trackMapperProvider.toModelList(tracks).slice(0, limit);
+      return this.trackMapperDto.toDtoList(tracks).slice(0, limit);
     } catch (error) {
       ErrorHandler.catch(error);
       return [];

@@ -1,5 +1,5 @@
+import { TrackMapperDto } from '../../infra/mapper/dto/TrackMapperDto';
 import { SpotifyArtistProvider, SpotifyPlaylistProvider, SpotifyTrackProvider } from '../../infra/providers';
-import { TrackMapperProvider } from '../../mappers/providers';
 import { TrackController } from '../../presentation/controllers';
 import { TrackService } from '../../services/TrackService';
 
@@ -9,7 +9,7 @@ export class TrackControllerFactory {
       new SpotifyTrackProvider(),
       new SpotifyArtistProvider(),
       new SpotifyPlaylistProvider(),
-      new TrackMapperProvider()
+      new TrackMapperDto()
     );
     return new TrackController(trackService);
   };

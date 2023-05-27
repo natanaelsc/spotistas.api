@@ -1,11 +1,11 @@
-import { type Track } from './Track';
+import { type TrackDto } from './TrackDto';
 
-export interface Playlist {
+export interface PlaylistDto {
   id: string;
   name: string;
   image: string;
   description: string;
   followers?: number;
   external_url: string;
-  tracks?: Track[];
+  tracks?: TrackDto[];
 }
