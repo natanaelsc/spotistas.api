@@ -60,5 +60,8 @@
     "morgan": "^1.10.0",
     "node-cache": "^5.1.2",
     "prisma": "^4.14.1"
+  },
+  "prisma": {
+    "schema": "./src/infra/database/prisma/schema.prisma"
   }
 }
