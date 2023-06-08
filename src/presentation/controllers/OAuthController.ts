@@ -14,9 +14,8 @@ export class OAuthController {
   auth = (_req: Request, res: Response): Response => {
     const state = Crypt.generate(16, 'base64url');
     Cookie.set(res, this._stateKey, state);
-    const redirectUri = this.oauthProvider.getRedirectUri(state);
-    res.status(HttpStatus.FOUND).redirect(redirectUri);
-    return res.end();
+    const redirect_uri = this.oauthProvider.getRedirectUri(state);
+    return res.status(HttpStatus.OK).json({ redirect_uri });
   };
 
   callback = async (req: Request, res: Response): Promise<Response> => {

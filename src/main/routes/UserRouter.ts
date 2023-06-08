@@ -8,10 +8,11 @@ export class UserRouter {
   private static readonly _cache = Cache.middleware;
   private static readonly _auth = Auth.middleware.user;
   private static _factory;
+  private static factory;
 
   private static readonly routes = (): Router => {
     const router = Router();
-    router.get('/', this._cache, this._factory.getUser);
+    router.get('/', this._cache, this.factory.createGetUserController().handle);
     router.get('/top/tracks', this._factory.getUserTopTracks);
     router.get('/top/artists', this._factory.getUserTopArtists);
     router.get('/top/genres', this._factory.getUserTopGenres);
@@ -24,5 +25,6 @@ export class UserRouter {
 
   static {
     this._factory = new ControllerFactory().createUserController();
+    this.factory = new ControllerFactory();
   }
 }

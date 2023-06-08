@@ -1,2 +1,3 @@
 *.json
 **/schema.prisma
+**/prisma/migrations

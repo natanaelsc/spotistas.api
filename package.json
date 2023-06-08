@@ -11,7 +11,13 @@
     "lint": "eslint --ext .ts src",
     "lint:fix": "eslint --ext .ts src --fix",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "prepare": "husky install"
+    "prepare": "husky install",
+    "docker:build": "docker compose up --build -d && docker compose logs -f",
+    "docker:down": "docker compose down --remove-orphans --volumes && docker compose rm -fsv",
+    "prisma": "prisma generate && prisma migrate dev",
+    "prisma:generate": "prisma generate",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:studio": "prisma studio --browser none --port 7777"
   },
   "repository": {
     "type": "git",

@@ -1,3 +1,4 @@
+import { PrismaClient } from '@prisma/client';
 import {
   ArtistController,
   OAuthController,
@@ -5,6 +6,7 @@ import {
   TrackController,
   UserController,
 } from '../../presentation/controllers';
+import { GetUserController } from '../../presentation/controllers/GetUserController';
 import { ArtistService } from '../../services/ArtistService';
 import { PlaylistService } from '../../services/PlaylistService';
 import { TrackService } from '../../services/TrackService';
@@ -19,6 +21,8 @@ import {
   SpotifyTrackProvider,
   SpotifyUserProvider,
 } from '../providers';
+import { RepositoryFactory } from './RepositoryFactory';
+import { UsecaseFactory } from './UsecaseFactory';
 
 export class ControllerFactory {
   createArtistController = (): ArtistController => {
@@ -54,5 +58,14 @@ export class ControllerFactory {
       new ArtistMapperDto()
     );
     return new UserController(userService);
+  };
+
+  createGetUserController = (): GetUserController => {
+    const connection = new PrismaClient();
+    const repositoryFactory = new RepositoryFactory(connection);
+    const usecaseFactory = new UsecaseFactory(repositoryFactory);
+    const userProvider = new SpotifyUserProvider();
+    const userMapperDto = new UserMapperDto();
+    return new GetUserController(usecaseFactory, userProvider, userMapperDto);
   };
 }
