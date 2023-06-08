@@ -1,6 +1,6 @@
-import { type RepositoryFactory } from '../../application/factory/RepositoryFactory';
 import { CreateUser } from '../../application/usecase/CreateUser';
 import { GetUser } from '../../application/usecase/GetUser';
+import { type RepositoryFactory } from './RepositoryFactory';
 
 export class UsecaseFactory {
   constructor(private readonly repositoryFactory: RepositoryFactory) {}

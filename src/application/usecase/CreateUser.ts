@@ -1,6 +1,6 @@
 import { User } from '../../domain/entity/User';
+import { type RepositoryFactory } from '../../infra/factory/RepositoryFactory';
 import { type UserRepository } from '../repository/UserRepository';
-import { type RepositoryFactory } from './../factory/RepositoryFactory';
 
 export class CreateUser {
   private readonly userRepository: UserRepository;
