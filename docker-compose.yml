@@ -13,8 +13,6 @@ services:
       - ${PORT}:${PORT}
     volumes:
       - ./:/app
-    links:
-      - postgres
     depends_on:
       postgres:
         condition: service_healthy
