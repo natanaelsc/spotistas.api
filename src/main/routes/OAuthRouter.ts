@@ -1,23 +1,23 @@
 import { Router } from 'express';
-import { ControllerFactory } from '../../infra/factory/ControllerFactory';
+import { controllerFactory } from '../../infra/factory/ControllerFactory';
 
 export class OAuthRouter {
-  private static readonly _prefix = '/oauth';
-  private static readonly _router = Router();
-  private static _factory;
+  private static readonly prefix = '/oauth';
+  private static readonly router = Router();
+  private static factory;
 
   private static readonly routes = (): Router => {
     const router = Router();
-    router.get('/', this._factory.auth);
-    router.get('/callback', this._factory.callback);
+    router.get('/', this.factory.createGetOAuthRedirectUrlController().handle);
+    router.get('/callback', this.factory.createGetOAuthCallbackController().handle);
     return router;
   };
 
   static create = (): Router => {
-    return this._router.use(this._prefix, this.routes());
+    return this.router.use(this.prefix, this.routes());
   };
 
   static {
-    this._factory = new ControllerFactory().createOAuthController();
+    this.factory = controllerFactory;
   }
 }

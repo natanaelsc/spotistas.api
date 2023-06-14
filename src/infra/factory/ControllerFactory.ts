@@ -1,71 +1,95 @@
 import { PrismaClient } from '@prisma/client';
-import {
-  ArtistController,
-  OAuthController,
-  PlaylistController,
-  TrackController,
-  UserController,
-} from '../../presentation/controllers';
+import { GetArtistMonthController } from '../../presentation/controllers/GetArtistMonthController';
+import { GetMusicOfTheDayController } from '../../presentation/controllers/GetMusicOfTheDayController';
+import { GetOAuthCallbackController } from '../../presentation/controllers/GetOAuthCallbackController';
+import { GetOAuthRedirectUrlController } from '../../presentation/controllers/GetOAuthRedirectUrlController';
+import { GetOurPlaylistsController } from '../../presentation/controllers/GetOurPlaylistsController';
+import { GetTopMusicBrasilController } from '../../presentation/controllers/GetTopMusicBrasilController';
 import { GetUserController } from '../../presentation/controllers/GetUserController';
-import { ArtistService } from '../../services/ArtistService';
-import { PlaylistService } from '../../services/PlaylistService';
-import { TrackService } from '../../services/TrackService';
-import { UserService } from '../../services/UserService';
-import { ArtistMapperDto } from '../mapper/dto/ArtistMapperDto';
-import { TrackMapperDto } from '../mapper/dto/TrackMapperDto';
-import { UserMapperDto } from '../mapper/dto/UserMapperDto';
-import {
-  SpotifyArtistProvider,
-  SpotifyOAuthProvider,
-  SpotifyPlaylistProvider,
-  SpotifyTrackProvider,
-  SpotifyUserProvider,
-} from '../providers';
+import { GetUserTopArtistsController } from '../../presentation/controllers/GetUserTopArtistsController';
+import { GetUserTopGenresController } from '../../presentation/controllers/GetUserTopGenresController';
+import { GetUserTopTracksController } from '../../presentation/controllers/GetUserTopTracksController';
+import { MapperFactory } from './MapperFactory';
+import { ProviderFactory } from './ProviderFactory';
 import { RepositoryFactory } from './RepositoryFactory';
 import { UsecaseFactory } from './UsecaseFactory';
 
 export class ControllerFactory {
-  createArtistController = (): ArtistController => {
-    const artistService = new ArtistService(new SpotifyArtistProvider(), new TrackMapperDto());
-    return new ArtistController(artistService);
+  constructor(
+    private readonly usecaseFactory: UsecaseFactory,
+    private readonly providerFactory: ProviderFactory,
+    private readonly mapperFactory: MapperFactory
+  ) {}
+
+  createGetOAuthRedirectUrlController = (): GetOAuthRedirectUrlController => {
+    return new GetOAuthRedirectUrlController(this.providerFactory.createOAuthProvider());
   };
 
-  createOAuthController = (): OAuthController => {
-    const spotifyOAuthProvider = new SpotifyOAuthProvider();
-    return new OAuthController(spotifyOAuthProvider);
+  createGetOAuthCallbackController = (): GetOAuthCallbackController => {
+    return new GetOAuthCallbackController(this.providerFactory.createOAuthProvider());
   };
 
-  createPlaylistController = (): PlaylistController => {
-    const playlistService = new PlaylistService(new SpotifyPlaylistProvider());
-    return new PlaylistController(playlistService);
-  };
-
-  createTrackController = (): TrackController => {
-    const trackService = new TrackService(
-      new SpotifyTrackProvider(),
-      new SpotifyArtistProvider(),
-      new SpotifyPlaylistProvider(),
-      new TrackMapperDto()
+  createGetMusicOfTheDayController = (): GetMusicOfTheDayController => {
+    return new GetMusicOfTheDayController(
+      this.providerFactory.createTrackProvider(),
+      this.providerFactory.createArtistProvider(),
+      this.mapperFactory.createTrackMapper()
     );
-    return new TrackController(trackService);
   };
 
-  createUserController = (): UserController => {
-    const userService = new UserService(
-      new SpotifyUserProvider(),
-      new UserMapperDto(),
-      new TrackMapperDto(),
-      new ArtistMapperDto()
+  createGetTopMusicBrasilController = (): GetTopMusicBrasilController => {
+    return new GetTopMusicBrasilController(
+      this.providerFactory.createPlaylistProvider(),
+      this.mapperFactory.createTrackMapper()
     );
-    return new UserController(userService);
   };
 
   createGetUserController = (): GetUserController => {
-    const connection = new PrismaClient();
-    const repositoryFactory = new RepositoryFactory(connection);
-    const usecaseFactory = new UsecaseFactory(repositoryFactory);
-    const userProvider = new SpotifyUserProvider();
-    const userMapperDto = new UserMapperDto();
-    return new GetUserController(usecaseFactory, userProvider, userMapperDto);
+    return new GetUserController(
+      this.usecaseFactory,
+      this.providerFactory.createUserProvider(),
+      this.mapperFactory.createUserMapper()
+    );
+  };
+
+  createGetUserTopTracksController = (): GetUserTopTracksController => {
+    return new GetUserTopTracksController(
+      this.providerFactory.createUserProvider(),
+      this.mapperFactory.createTrackMapper()
+    );
+  };
+
+  createGetUserTopArtistsController = (): GetUserTopArtistsController => {
+    return new GetUserTopArtistsController(
+      this.providerFactory.createUserProvider(),
+      this.mapperFactory.createArtistMapper()
+    );
+  };
+
+  createGetUserTopGenresController = (): GetUserTopGenresController => {
+    return new GetUserTopGenresController(this.providerFactory.createUserProvider());
+  };
+
+  createGetArtistMonthController = (): GetArtistMonthController => {
+    return new GetArtistMonthController(
+      this.providerFactory.createArtistProvider(),
+      this.mapperFactory.createTrackMapper()
+    );
+  };
+
+  createGetOurPlaylistsController = (): GetOurPlaylistsController => {
+    return new GetOurPlaylistsController(
+      this.providerFactory.createPlaylistProvider(),
+      this.mapperFactory.createPlaylistMapper()
+    );
   };
 }
+
+const connection = new PrismaClient();
+const repositoryFactory = new RepositoryFactory(connection);
+const usecaseFactory = new UsecaseFactory(repositoryFactory);
+const providerFactory = new ProviderFactory();
+const mapperFactory = new MapperFactory();
+const controllerFactory = new ControllerFactory(usecaseFactory, providerFactory, mapperFactory);
+
+export { controllerFactory };

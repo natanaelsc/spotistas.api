@@ -11,15 +11,15 @@ export class GetUserController {
   constructor(
     private readonly usecaseFactory: UsecaseFactory,
     private readonly userProvider: UserProvider,
-    private readonly userMapperDto: MapperDto<UserDto, UserProviderDto>
+    private readonly userMapper: MapperDto<UserDto, UserProviderDto>
   ) {}
 
   handle = async (req: Request, res: Response): Promise<Response> => {
     try {
       const token = Cookie.get(req, 'token');
       const userProviderDto = await this.userProvider.getUser(token);
-      if (userProviderDto == null) return res.status(HttpStatus.UNAUTHORIZED).send({ error: 'unauthorized' });
-      const userDto = this.userMapperDto.toDto(userProviderDto);
+      if (userProviderDto == null) return res.status(HttpStatus.BAD_REQUEST).send({ error: 'bad request' });
+      const userDto = this.userMapper.toDto(userProviderDto);
       const user = await this.usecaseFactory.createGetUser().execute(userDto.email);
       if (user.email === undefined) await this.usecaseFactory.createCreateUser().execute(userDto);
       Cache.get(userDto.id, userDto);

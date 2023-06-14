@@ -1,6 +1,5 @@
 import { type OAuthProvider, type OAuthProviderDto } from '../../application/provider/OAuthProvider';
 import { Env } from '../../main/config';
-import logger from '../../main/config/logger';
 import { HttpContentType } from '../../presentation/http';
 import { HttpClient } from '../http/HttpClient';
 
@@ -37,7 +36,6 @@ export class SpotifyOAuthProvider implements OAuthProvider {
       },
       HttpContentType.FORM
     );
-    logger.debug('OAuthProvider:', token);
     return token;
   };
 }
