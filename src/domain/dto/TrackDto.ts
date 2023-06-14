@@ -13,6 +13,6 @@ export interface TrackDto {
   album: AlbumDto;
 }
 
-export interface MusicOfDay extends TrackDto {
+export interface MusicOfTheDay extends TrackDto {
   note: string;
 }
