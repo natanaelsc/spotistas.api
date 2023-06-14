@@ -24,7 +24,8 @@ export class GetUserTopTracksController {
       if (trackProviderDtoList == null) return res.status(HttpStatus.BAD_REQUEST).send({ error: 'bad request' });
       if (trackProviderDtoList.length === 0) return res.status(HttpStatus.OK).send({ message: 'no results found' });
       const trackDtoList = this.trackMapper.toDtoList(trackProviderDtoList);
-      return res.status(HttpStatus.OK).json(trackDtoList);
+      const tracks = { tracks: trackDtoList };
+      return res.status(HttpStatus.OK).json(tracks);
     } catch (error) {
       const { status, message } = ErrorHandler.catch(error);
       return res.status(status).send({ error: message });

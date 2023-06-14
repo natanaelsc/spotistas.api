@@ -29,7 +29,7 @@ export class GetArtistMonthController {
       const trackDtoList = this.trackMapper.toDtoList(trackProviderDtoList.slice(0, limitToNumber));
       const artistMonth = {
         ...artistDto,
-        trackDtoList,
+        tracks: trackDtoList,
       };
       Cache.get(req.originalUrl, artistMonth);
       return res.status(HttpStatus.OK).json(artistMonth);

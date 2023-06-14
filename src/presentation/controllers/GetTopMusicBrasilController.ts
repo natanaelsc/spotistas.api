@@ -27,8 +27,9 @@ export class GetTopMusicBrasilController {
       if (playlistProviderDto == null) return res.status(HttpStatus.BAD_REQUEST).send({ error: 'bad request' });
       const trackProviderDtoList = playlistProviderDto.tracks.items.map(item => item.track);
       const trackDtoList = this.trackMapper.toDtoList(trackProviderDtoList.slice(0, limitToNumber));
-      Cache.get(req.originalUrl, trackDtoList);
-      return res.status(HttpStatus.OK).json(trackDtoList);
+      const tracks = { tracks: trackDtoList };
+      Cache.get(req.originalUrl, tracks);
+      return res.status(HttpStatus.OK).json(tracks);
     } catch (error) {
       const { status, message } = ErrorHandler.catch(error);
       return res.status(status).send({ error: message });
