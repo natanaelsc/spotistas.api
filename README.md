@@ -4,28 +4,34 @@
 
 ## Instruções
 
-Para executar a aplicação, siga as etapas abaixo:
+### Requisitos
 
-1. Baixe e instale o [Git Bash](https://git-scm.com/downloads) e o [Node.js](https://nodejs.org/en/) versão LTS.
+Tenha o [Node.js](https://nodejs.org/en/) e [Docker](https://www.docker.com/get-started/) instalados e configurado.
 
-2. Clone este repositório.
+### Execução
+
+1. Clone este repositório.
 
     ```sh
     git clone https://github.com/spotistas/spotistas.api.git
     ```
 
-3. Instale as dependências:
+2. Instale as dependências:
 
     ```sh
     npm install
     ```
 
-4. Crie o arquivo .env na raiz do projeto baseado no arquivo [.env.exemple](/docs/.env.exemple).
+3. Crie o arquivo .env na raiz do projeto baseado no arquivo [.env.exemple](/docs/.env.exemple) e adicione as credenciais de seu [aplicativo Spotify](/docs/spotify/README.md#aplicativo).
 
-5. Siga as [instruções](/docs/spotify/README.md) para adquirir suas credenciais do Spotify.
-
-6. Execute o projeto:
+4. Execute o projeto:
 
     ```sh
-    npm run start:dev
+    npm run start:db && npm run start:dev
+    ```
+
+* Para derrubar o container Docker do Postgres, execute:
+
+    ```sh
+    npm run compose:down
     ```
