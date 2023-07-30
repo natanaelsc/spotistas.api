@@ -3,7 +3,7 @@ import { PlaylistMapperDto } from '../mapper/dto/PlaylistMapperDto';
 import { TrackMapperDto } from '../mapper/dto/TrackMapperDto';
 import { UserMapperDto } from '../mapper/dto/UserMapperDto';
 
-export class MapperFactory {
+export default class MapperFactory {
   createArtistMapper = (): ArtistMapperDto => {
     return new ArtistMapperDto();
   };

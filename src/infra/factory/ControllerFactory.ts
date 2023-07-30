@@ -9,10 +9,11 @@ import { GetUserController } from '../../presentation/controllers/GetUserControl
 import { GetUserTopArtistsController } from '../../presentation/controllers/GetUserTopArtistsController';
 import { GetUserTopGenresController } from '../../presentation/controllers/GetUserTopGenresController';
 import { GetUserTopTracksController } from '../../presentation/controllers/GetUserTopTracksController';
-import { MapperFactory } from './MapperFactory';
-import { ProviderFactory } from './ProviderFactory';
-import { RepositoryFactory } from './RepositoryFactory';
-import { UsecaseFactory } from './UsecaseFactory';
+import FetchAdapter from '../http/FetchAdapter';
+import MapperFactory from './MapperFactory';
+import ProviderFactory from './ProviderFactory';
+import RepositoryFactory from './RepositoryFactory';
+import UsecaseFactory from './UsecaseFactory';
 
 export class ControllerFactory {
   constructor(
@@ -88,7 +89,8 @@ export class ControllerFactory {
 const connection = new PrismaClient();
 const repositoryFactory = new RepositoryFactory(connection);
 const usecaseFactory = new UsecaseFactory(repositoryFactory);
-const providerFactory = new ProviderFactory();
+const httpClient = new FetchAdapter();
+const providerFactory = new ProviderFactory(httpClient);
 const mapperFactory = new MapperFactory();
 const controllerFactory = new ControllerFactory(usecaseFactory, providerFactory, mapperFactory);
 

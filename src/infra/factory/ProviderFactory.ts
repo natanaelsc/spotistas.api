@@ -8,25 +8,28 @@ import SpotifyOAuthProvider from '../external/spotify/api/SpotifyOAuthProvider';
 import SpotifyPlaylistProvider from '../external/spotify/api/SpotifyPlaylistProvider';
 import SpotifyTrackProvider from '../external/spotify/api/SpotifyTrackProvider';
 import SpotifyUserProvider from '../external/spotify/api/SpotifyUserProvider';
+import type HttpClient from '../http/HttpClient';
 
-export class ProviderFactory {
+export default class ProviderFactory {
+  constructor(private readonly httpClient: HttpClient) {}
+
   createOAuthProvider = (): OAuthProvider => {
-    return new SpotifyOAuthProvider();
+    return new SpotifyOAuthProvider(this.httpClient);
   };
 
   createUserProvider = (): UserProvider => {
-    return new SpotifyUserProvider();
+    return new SpotifyUserProvider(this.httpClient);
   };
 
   createTrackProvider = (): TrackProvider => {
-    return new SpotifyTrackProvider();
+    return new SpotifyTrackProvider(this.httpClient);
   };
 
   createArtistProvider = (): ArtistProvider => {
-    return new SpotifyArtistProvider();
+    return new SpotifyArtistProvider(this.httpClient);
   };
 
   createPlaylistProvider = (): PlaylistProvider => {
-    return new SpotifyPlaylistProvider();
+    return new SpotifyPlaylistProvider(this.httpClient);
   };
 }
