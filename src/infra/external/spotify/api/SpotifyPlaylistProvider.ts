@@ -1,28 +1,29 @@
 import type PlaylistProvider from '../../../../application/provider/PlaylistProvider';
 import { Env } from '../../../../main/config';
-import { Spotify } from '../../../api/Spotify';
+import type HttpClient from '../../../http/HttpClient';
+import Spotify from '../Spotify';
 import type Playlist from '../dto/Playlist';
 
 export default class SpotifyPlaylistProvider implements PlaylistProvider {
+  private readonly baseUrl = 'https://api.spotify.com/v1';
   private readonly path = 'playlists';
   private readonly limit = 50;
   private readonly userId = Env.get('SPOTIFY_USER_ID');
 
+  constructor(private readonly httpClient: HttpClient) {}
+
   getPlaylist = async (id: string): Promise<Playlist> => {
-    const playlist = await Spotify.api(`${this.path}/${id}`);
-    return playlist as Playlist;
+    const url = `${this.baseUrl}/${this.path}/${id}`;
+    const token = await Spotify.getToken();
+    const playlist = await this.httpClient.get<Playlist>(url, token);
+    return playlist;
   };
 
   getOurPlaylists = async (limit = this.limit): Promise<Playlist[]> => {
-    const data = await Spotify.api(`users/${this.userId}/playlists?limit=${limit}`);
-    const playlists = data.items.map((playlist: Playlist) => ({
-      id: playlist.id,
-      name: playlist.name,
-      description: playlist.description,
-      images: playlist.images,
-      followers: playlist.followers,
-      external_urls: playlist.external_urls,
-    }));
-    return playlists as Playlist[];
+    const url = `${this.baseUrl}/users/${this.userId}/playlists?limit=${limit}`;
+    const token = await Spotify.getToken();
+    const data = await this.httpClient.get<{ items: Playlist[] }>(url, token);
+    const playlists = data.items;
+    return playlists;
   };
 }

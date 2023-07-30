@@ -1,16 +1,24 @@
 export default interface User {
-  id: string;
+  country: string;
   display_name: string;
   email: string;
-  images: Array<{ url: string }>;
-  followers: { total: number };
+  explicit_content: {
+    filter_enabled: boolean;
+    filter_locked: boolean;
+  };
   external_urls: { spotify: string };
-  country: string;
+  followers: {
+    href: string;
+    total: number;
+  };
+  href: string;
+  id: string;
+  images: Array<{
+    url: string;
+    height: number;
+    width: number;
+  }>;
   product: string;
-  explicit_content: ExplicitContent;
-}
-
-export interface ExplicitContent {
-  filter_enabled: boolean;
-  filter_locked: boolean;
+  type: string;
+  uri: string;
 }
