@@ -1,7 +1,8 @@
 import { type Request, type Response } from 'express';
 import { type MapperDto } from '../../application/mapper/MapperDto';
-import { type PlaylistProvider, type PlaylistProviderDto } from '../../application/provider/PlaylistProvider';
+import type PlaylistProvider from '../../application/provider/PlaylistProvider';
 import { type PlaylistDto } from '../../domain/dto/PlaylistDto';
+import type Playlist from '../../infra/external/spotify/dto/Playlist';
 import { Cache } from '../../main/middlewares';
 import { ErrorHandler } from '../errors';
 import { HttpStatus } from '../http';
@@ -9,7 +10,7 @@ import { HttpStatus } from '../http';
 export class GetOurPlaylistsController {
   constructor(
     private readonly playlistProvider: PlaylistProvider,
-    private readonly playlistMapper: MapperDto<PlaylistDto, PlaylistProviderDto>
+    private readonly playlistMapper: MapperDto<PlaylistDto, Playlist>
   ) {}
 
   handle = async (req: Request, res: Response): Promise<Response> => {

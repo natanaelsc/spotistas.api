@@ -1,17 +1,14 @@
 import { type Request, type Response } from 'express';
 import { type MapperDto } from '../../application/mapper/MapperDto';
-import { type TrackProviderDto } from '../../application/provider/TrackProvider';
-import { type UserProvider } from '../../application/provider/UserProvider';
+import type UserProvider from '../../application/provider/UserProvider';
 import { type TrackDto } from '../../domain/dto/TrackDto';
+import type Track from '../../infra/external/spotify/dto/Track';
 import { Cookie } from '../../main/middlewares';
 import { ErrorHandler } from '../errors';
 import { HttpStatus } from '../http';
 
 export class GetUserTopTracksController {
-  constructor(
-    private readonly userProvider: UserProvider,
-    private readonly trackMapper: MapperDto<TrackDto, TrackProviderDto>
-  ) {}
+  constructor(private readonly userProvider: UserProvider, private readonly trackMapper: MapperDto<TrackDto, Track>) {}
 
   handle = async (req: Request, res: Response): Promise<Response> => {
     const { time, limit } = req.query;

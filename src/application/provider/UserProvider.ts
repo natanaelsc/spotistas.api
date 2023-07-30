@@ -1,25 +1,9 @@
-import { type ArtistProviderDto } from './ArtistProvider';
-import { type TrackProviderDto } from './TrackProvider';
+import type Artist from '../../infra/external/spotify/dto/Artist';
+import type Track from '../../infra/external/spotify/dto/Track';
+import type User from '../../infra/external/spotify/dto/User';
 
-export interface UserProvider {
-  getUser: (token: string) => Promise<UserProviderDto>;
-  getTopTracks: (token: string, time_range: string, limit?: number) => Promise<TrackProviderDto[]>;
-  getTopArtists: (token: string, time_range: string, limit?: number) => Promise<ArtistProviderDto[]>;
-}
-
-export interface UserProviderDto {
-  id: string;
-  display_name: string;
-  email: string;
-  images: Array<{ url: string }>;
-  followers: { total: number };
-  external_urls: { spotify: string };
-  country: string;
-  product: string;
-  explicit_content: ExplicitContent;
-}
-
-export interface ExplicitContent {
-  filter_enabled: boolean;
-  filter_locked: boolean;
+export default interface UserProvider {
+  getUser: (token: string) => Promise<User>;
+  getTopTracks: (token: string, time_range: string, limit?: number) => Promise<Track[]>;
+  getTopArtists: (token: string, time_range: string, limit?: number) => Promise<Artist[]>;
 }

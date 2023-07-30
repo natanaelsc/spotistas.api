@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import { type UserProvider } from '../../application/provider/UserProvider';
+import type UserProvider from '../../application/provider/UserProvider';
 import { Cookie } from '../../main/middlewares';
 import { ErrorHandler } from '../errors';
 import { HttpStatus } from '../http';

@@ -1,8 +1,8 @@
 import { type Request, type Response } from 'express';
 import { type MapperDto } from '../../application/mapper/MapperDto';
-import { type ArtistProviderDto } from '../../application/provider/ArtistProvider';
-import { type UserProvider } from '../../application/provider/UserProvider';
+import type UserProvider from '../../application/provider/UserProvider';
 import { type ArtistDto } from '../../domain/dto/ArtistDto';
+import type Artist from '../../infra/external/spotify/dto/Artist';
 import { Cookie } from '../../main/middlewares';
 import { ErrorHandler } from '../errors';
 import { HttpStatus } from '../http';
@@ -10,7 +10,7 @@ import { HttpStatus } from '../http';
 export class GetUserTopArtistsController {
   constructor(
     private readonly userProvider: UserProvider,
-    private readonly artistMapper: MapperDto<ArtistDto, ArtistProviderDto>
+    private readonly artistMapper: MapperDto<ArtistDto, Artist>
   ) {}
 
   handle = async (req: Request, res: Response): Promise<Response> => {

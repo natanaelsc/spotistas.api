@@ -1,16 +1,7 @@
-import { type TrackProviderDto } from './TrackProvider';
+import type Artist from '../../infra/external/spotify/dto/Artist';
+import type Track from '../../infra/external/spotify/dto/Track';
 
-export interface ArtistProvider {
-  getArtist: (id: string) => Promise<ArtistProviderDto>;
-  getArtistTopTracks: (id: string) => Promise<TrackProviderDto[]>;
-}
-
-export interface ArtistProviderDto {
-  id: string;
-  name: string;
-  images: Array<{ url: string }>;
-  genres: string[];
-  popularity: number;
-  followers: { total: number };
-  external_urls: { spotify: string };
+export default interface ArtistProvider {
+  getArtist: (id: string) => Promise<Artist>;
+  getArtistTopTracks: (id: string) => Promise<Track[]>;
 }

@@ -1,9 +1,10 @@
 import { type Request, type Response } from 'express';
 import { type MapperDto } from '../../application/mapper/MapperDto';
-import { type ArtistProvider } from '../../application/provider/ArtistProvider';
-import { type TrackProvider, type TrackProviderDto } from '../../application/provider/TrackProvider';
+import type ArtistProvider from '../../application/provider/ArtistProvider';
+import type TrackProvider from '../../application/provider/TrackProvider';
 import { type MusicOfTheDay, type TrackDto } from '../../domain/dto/TrackDto';
 import db from '../../infra/database/db.json';
+import type Track from '../../infra/external/spotify/dto/Track';
 import { Cache } from '../../main/middlewares';
 import { ErrorHandler } from '../errors';
 import { HttpStatus } from '../http';
@@ -14,7 +15,7 @@ export class GetMusicOfTheDayController {
   constructor(
     private readonly trackProvider: TrackProvider,
     private readonly artistProvider: ArtistProvider,
-    private readonly trackMapper: MapperDto<TrackDto, TrackProviderDto>
+    private readonly trackMapper: MapperDto<TrackDto, Track>
   ) {}
 
   handle = async (req: Request, res: Response): Promise<Response> => {

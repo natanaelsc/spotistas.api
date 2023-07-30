@@ -1,7 +1,8 @@
 import { type Request, type Response } from 'express';
 import { type MapperDto } from '../../application/mapper/MapperDto';
-import { type UserProvider, type UserProviderDto } from '../../application/provider/UserProvider';
+import type UserProvider from '../../application/provider/UserProvider';
 import { type UserDto } from '../../domain/dto/UserDto';
+import type User from '../../infra/external/spotify/dto/User';
 import { Cache, Cookie } from '../../main/middlewares';
 import { ErrorHandler } from '../errors';
 import { HttpStatus } from '../http';
@@ -11,7 +12,7 @@ export class GetUserController {
   constructor(
     private readonly usecaseFactory: UsecaseFactory,
     private readonly userProvider: UserProvider,
-    private readonly userMapper: MapperDto<UserDto, UserProviderDto>
+    private readonly userMapper: MapperDto<UserDto, User>
   ) {}
 
   handle = async (req: Request, res: Response): Promise<Response> => {

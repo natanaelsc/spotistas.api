@@ -1,5 +1,5 @@
 import { type Request, type Response } from 'express';
-import { type OAuthProvider } from '../../application/provider/OAuthProvider';
+import type OAuthProvider from '../../application/provider/OAuthProvider';
 import { Env } from '../../main/config';
 import { Cookie } from '../../main/middlewares';
 import { ErrorHandler } from '../errors';

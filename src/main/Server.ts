@@ -50,7 +50,7 @@ export default class Server {
   public readonly start = (): void => {
     this.server
       .listen(this._port, () => {
-        logger.info('🚀 Server is running on port', this._port);
+        logger.info(`🚀 Server is running on http://localhost:${this._port}`);
         logger.info('🚀 Press CTRL-C to stop\n');
       })
       .on('error', err => {

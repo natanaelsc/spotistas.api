@@ -1,5 +1,5 @@
 import { type NextFunction, type Request, type Response } from 'express';
-import { SpotifyUserProvider } from '../../infra/providers';
+import SpotifyUserProvider from '../../infra/external/spotify/api/SpotifyUserProvider';
 import { ErrorHandler } from '../../presentation/errors';
 import { HttpStatus } from '../../presentation/http';
 import { Cookie } from './Cookie';

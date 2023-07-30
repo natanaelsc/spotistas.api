@@ -1,9 +1,9 @@
 import { type MapperDto } from '../../../application/mapper/MapperDto';
-import { type TrackProviderDto } from '../../../application/provider/TrackProvider';
 import { type TrackDto } from '../../../domain/dto/TrackDto';
+import type Track from '../../external/spotify/dto/Track';
 
-export class TrackMapperDto implements MapperDto<TrackDto, TrackProviderDto> {
-  toDto = (data: TrackProviderDto): TrackDto => {
+export class TrackMapperDto implements MapperDto<TrackDto, Track> {
+  toDto = (data: Track): TrackDto => {
     const { id, name, preview_url, external_urls, duration_ms, popularity, artists, album } = data;
     return {
       id,
@@ -28,7 +28,7 @@ export class TrackMapperDto implements MapperDto<TrackDto, TrackProviderDto> {
     };
   };
 
-  toDtoList = (data: TrackProviderDto[]): TrackDto[] => {
+  toDtoList = (data: Track[]): TrackDto[] => {
     return data.map(this.toDto);
   };
 }

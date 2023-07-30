@@ -1,9 +1,10 @@
-import { type OAuthProvider, type OAuthProviderDto } from '../../application/provider/OAuthProvider';
-import { Env } from '../../main/config';
-import { HttpContentType } from '../../presentation/http';
-import { HttpClient } from '../http/HttpClient';
+import type OAuthProvider from '../../../../application/provider/OAuthProvider';
+import { Env } from '../../../../main/config';
+import { HttpContentType } from '../../../../presentation/http';
+import { HttpClient } from '../../../http/HttpClient';
+import type OAuth from '../dto/OAuth';
 
-export class SpotifyOAuthProvider implements OAuthProvider {
+export default class SpotifyOAuthProvider implements OAuthProvider {
   private readonly baseUrl = 'https://accounts.spotify.com';
   private readonly clientId = Env.get('SPOTIFY_CLIENT_ID');
   private readonly clientSecret = Env.get('SPOTIFY_CLIENT_SECRET');
@@ -24,7 +25,7 @@ export class SpotifyOAuthProvider implements OAuthProvider {
     return redirectURI;
   };
 
-  exchangeCode = async (code: string): Promise<OAuthProviderDto> => {
+  exchangeCode = async (code: string): Promise<OAuth> => {
     const token = await HttpClient.post(
       `${this.baseUrl}/api/token`,
       {

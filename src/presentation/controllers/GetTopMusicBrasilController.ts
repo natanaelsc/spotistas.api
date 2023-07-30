@@ -1,9 +1,9 @@
 import { type Request, type Response } from 'express';
 import { type MapperDto } from '../../application/mapper/MapperDto';
-import { type PlaylistProvider } from '../../application/provider/PlaylistProvider';
-import { type TrackProviderDto } from '../../application/provider/TrackProvider';
+import type PlaylistProvider from '../../application/provider/PlaylistProvider';
 import { type TrackDto } from '../../domain/dto/TrackDto';
 import db from '../../infra/database/db.json';
+import type Track from '../../infra/external/spotify/dto/Track';
 import { Cache } from '../../main/middlewares';
 import { ErrorHandler } from '../errors';
 import { HttpStatus } from '../http';
@@ -13,7 +13,7 @@ export class GetTopMusicBrasilController {
 
   constructor(
     private readonly playlistProvider: PlaylistProvider,
-    private readonly trackMapper: MapperDto<TrackDto, TrackProviderDto>
+    private readonly trackMapper: MapperDto<TrackDto, Track>
   ) {}
 
   handle = async (req: Request, res: Response): Promise<Response> => {

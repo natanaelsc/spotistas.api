@@ -1,9 +1,6 @@
-export interface OAuthProvider {
-  getRedirectUri: (state: string) => string;
-  exchangeCode: (code: string) => Promise<OAuthProviderDto>;
-}
+import type OAuth from '../../infra/external/spotify/dto/OAuth';
 
-export interface OAuthProviderDto {
-  access_token: string;
-  refresh_token: string;
+export default interface OAuthProvider {
+  getRedirectUri: (state: string) => string;
+  exchangeCode: (code: string) => Promise<OAuth>;
 }

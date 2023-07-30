@@ -1,9 +1,9 @@
 import { type MapperDto } from '../../../application/mapper/MapperDto';
-import { type ArtistProviderDto } from '../../../application/provider/ArtistProvider';
 import { type ArtistDto } from '../../../domain/dto/ArtistDto';
+import type Artist from '../../external/spotify/dto/Artist';
 
-export class ArtistMapperDto implements MapperDto<ArtistDto, ArtistProviderDto> {
-  toDto = (data: ArtistProviderDto): ArtistDto => {
+export class ArtistMapperDto implements MapperDto<ArtistDto, Artist> {
+  toDto = (data: Artist): ArtistDto => {
     const { id, name, images, genres, popularity, followers, external_urls } = data;
     return {
       id,
@@ -16,7 +16,7 @@ export class ArtistMapperDto implements MapperDto<ArtistDto, ArtistProviderDto> 
     };
   };
 
-  toDtoList = (data: ArtistProviderDto[]): ArtistDto[] => {
+  toDtoList = (data: Artist[]): ArtistDto[] => {
     return data.map(item => this.toDto(item));
   };
 }
