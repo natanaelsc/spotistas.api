@@ -1,6 +1,6 @@
-import { type User } from '../../domain/entity/User';
+import type User from '../../domain/entity/User';
 
-export interface UserRepository {
+export default interface UserRepository {
   save: (user: User) => Promise<void>;
   findByEmail: (email: string) => Promise<User | undefined>;
 }

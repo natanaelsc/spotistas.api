@@ -1,8 +1,8 @@
 import { type PrismaClient } from '@prisma/client';
-import { type UserRepository } from '../../application/repository/UserRepository';
-import { User } from '../../domain/entity/User';
+import type UserRepository from '../../application/repository/UserRepository';
+import User from '../../domain/entity/User';
 
-export class PrismaUserRepository implements UserRepository {
+export default class PrismaUserRepository implements UserRepository {
   constructor(private readonly prisma: PrismaClient) {}
 
   save = async (user: User): Promise<void> => {
@@ -20,10 +20,6 @@ export class PrismaUserRepository implements UserRepository {
       where: { email },
     });
     if (user == null) return undefined;
-    return new User({
-      id: user.id,
-      name: user.name ?? '',
-      email: user.email,
-    });
+    return User.create(user.id, user.name ?? '', user.email);
   };
 }

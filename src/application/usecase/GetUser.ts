@@ -1,7 +1,7 @@
-import { type RepositoryFactory } from '../../infra/factory/RepositoryFactory';
-import { type UserRepository } from '../repository/UserRepository';
+import type RepositoryFactory from '../../infra/factory/RepositoryFactory';
+import type UserRepository from '../repository/UserRepository';
 
-export class GetUser {
+export default class GetUser {
   private readonly userRepository: UserRepository;
 
   constructor(repositoryFactory: RepositoryFactory) {

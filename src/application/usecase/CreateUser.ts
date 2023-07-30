@@ -1,8 +1,8 @@
-import { User } from '../../domain/entity/User';
-import { type RepositoryFactory } from '../../infra/factory/RepositoryFactory';
-import { type UserRepository } from '../repository/UserRepository';
+import User from '../../domain/entity/User';
+import type RepositoryFactory from '../../infra/factory/RepositoryFactory';
+import type UserRepository from '../repository/UserRepository';
 
-export class CreateUser {
+export default class CreateUser {
   private readonly userRepository: UserRepository;
 
   constructor(repositoryFactory: RepositoryFactory) {
@@ -10,11 +10,7 @@ export class CreateUser {
   }
 
   execute = async (input: Input): Promise<void> => {
-    const user = new User({
-      id: input.id,
-      name: input.name,
-      email: input.email,
-    });
+    const user = User.create(input.id, input.name, input.email);
     await this.userRepository.save(user);
   };
 }
