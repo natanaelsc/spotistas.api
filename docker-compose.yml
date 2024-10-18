@@ -1,13 +1,25 @@
-version: "3"
+name: spotistas
 
 services:
+  api:
+    image: node:18.14.0-alpine3.17
+    ports:
+      - 5000:5000
+    user: node
+    working_dir: /api
+    command: /bin/sh /api/.docker.sh
+    volumes:
+      - .:/api
+    depends_on:
+      postgres:
+        condition: service_healthy
+        required: true
+    links:
+      - postgres
+
   postgres:
-    container_name: spotistas-db
     image: postgres:15-alpine
     restart: unless-stopped
-    hostname: postgres
-    networks:
-      - spotistas
     ports:
       - 5432:5432
     volumes:
@@ -15,14 +27,11 @@ services:
     environment:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: postgres
-      PGDATA: /data/postgres
     healthcheck:
       test: "exit 0"
 
 volumes:
   postgres:
-   name: spotistas-db
 
 networks:
-  spotistas:
-    name: spotistas
+  default:

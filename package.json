@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/main/index.js",
     "start:dev": "ts-node-dev --respawn --transpile-only --watch .env --ignore-watch node_modules --cls src/main/index.ts",
-    "start:db": "docker compose up --build -d && prisma generate && prisma migrate dev",
+    "start:db": "prisma generate && prisma migrate dev",
     "build": "./node_modules/.bin/tsc -p tsconfig.json",
     "build:clean": "rm -rf dist && npm run build",
     "lint": "eslint --ext .ts src",
